@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="msvalidate.01" content="C1AE938064DC2CC5A4554988A9D74A04">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
+<meta name="keywords" content="cryptography,schnorr scheme,digital signature,ED25519,EdDSA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Schnorr Scheme">
+<meta property="og:url" content="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-27T11:01:22.203Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Schnorr Scheme">
+<meta name="twitter:description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Schnorr Scheme | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Schnorr Scheme
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-27 15:25:46 / Modified: 19:01:22" itemprop="dateCreated datePublished" datetime="2018-12-27T15:25:46+08:00">2018-12-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/27/Schnorr-Scheme/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/27/Schnorr-Scheme/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p>
+<p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。</p>
+<p>在这里参考Schnorr的论文与其他的参考资料，解析Schnorr签名的原始机制与实现。最终会解析现在主流的EdDSA的实现ED25519与种对Schnorr签名的应用。</p>
+<a id="more"></a>
+<blockquote>
+<p>本文中所有出现的变量，小写字母表示标量，即一个数字，在这里指整数；大写字母表示离散对数问题中的参数，例如：椭圆曲线中的点。</p>
+</blockquote>
+<h3 id="original-schnorr-scheme">Original Schnorr Scheme</h3>
+<p>原始的Schnorr签名是一个交互式的签名机制。允许在任何拥有相同生成元（指在离散对数问题中）的协议参与者双方，证明某一方拥有私钥 <span class="math inline">\(x\)</span> 而不需要直接交换它。其中双方都拥有的生成元设为 <span class="math inline">\(G\)</span> ，证明者拥有私钥 <span class="math inline">\(x\)</span> 。验证者从证明者处取得 <span class="math inline">\(Y\)</span> ，其中 <span class="math inline">\(Y = xG\)</span>，<span class="math inline">\(Y\)</span> 即公钥。</p>
+<p>Original Schnorr Signature的协议流程如下：</p>
+<ol type="1">
+<li>证明者随机选择一个标量 <span class="math inline">\(r_1\)</span>，然后计算出 <span class="math inline">\(R = r_1G\)</span>。并将 <span class="math inline">\(R\)</span> 发送至验证者。</li>
+<li>验证者回应一个随机的标量 <span class="math inline">\(r_2\)</span>。</li>
+<li>证明者回应一个标量<span class="math inline">\(s\)</span>，通过公式 <span class="math inline">\(s = r_1 + r_2x\)</span> 计算。</li>
+</ol>
+<p>因为离散对数问题是困难的，因此验证者不会知道 <span class="math inline">\(x, r_1\)</span>的值，验证者仅知道由 <span class="math inline">\(x, r_1\)</span>计算得到的 <span class="math inline">\(Y, R\)</span>。但是验证者可以通过以下计算来验证<span class="math inline">\(s\)</span>是正确的：</p>
+<ul>
+<li>由于<span class="math inline">\(s = r_1 + r_2x\)</span>，等式两边同时添加相同的生成元可得 <span class="math inline">\(sG = r_1G + r_2xG\)</span>。</li>
+<li>由于<span class="math inline">\(R = r_1G\)</span>，<span class="math inline">\(Y = xG\)</span>，可以化简得到 <span class="math inline">\(sG = R + r_2Y\)</span>。</li>
+</ul>
+<p>其中 <span class="math inline">\(G\)</span> 是生成元，双方都可知，<span class="math inline">\(R, Y, s, r_2\)</span> 验证者都知道，所以验证者可以轻松验证化简过的公式。</p>
+<p>这个过程是零知识的，因为验证者并不能得到私钥 <span class="math inline">\(x\)</span> 的值，却可以通过计算与通讯的方式验证证明者确实拥有私钥 <span class="math inline">\(x\)</span>。</p>
+<h3 id="problem-of-original-schnorr-scheme">Problem of Original Schnorr Scheme</h3>
+<p>然而这样交互式的过程，会导致验证者通过"fork"的方式获得私钥 <span class="math inline">\(x\)</span>。验证者只需要简单的提供两个不同的随机值 <span class="math inline">\(r_2^1, r_2^2\)</span>，并要求证明者计算 <span class="math inline">\(s_1 = r_1 + r_2^1x, s_2 = r_1 + r_2^2x\)</span>，即可计算出<span class="math inline">\(x = (s_1 - s_2)/(r_2^1 - r_2^2)\)</span>。这样一来，这个过程便无法公开的验证，因为一旦两个验证者相互串通，交换自己得到的值，便可以推出私钥<span class="math inline">\(x\)</span>。</p>
+<p>为了解决这个问题，后续将会通过对现有的协议进行Fiat–Shamir变换，使用Random oracles改造这个算法来使Schnorr原始的Schnorr Scheme变成可公开验证的非交互式算法。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Tiannian Du</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/" title="Schnorr Scheme">https://tiannian.github.io/2018/12/27/Schnorr-Scheme/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cryptography/" rel="tag"># cryptography</a>
+          
+            <a href="/tags/schnorr-scheme/" rel="tag"># schnorr scheme</a>
+          
+            <a href="/tags/digital-signature/" rel="tag"># digital signature</a>
+          
+            <a href="/tags/ED25519/" rel="tag"># ED25519</a>
+          
+            <a href="/tags/EdDSA/" rel="tag"># EdDSA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tiannian Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/tiannian" title="GitHub &rarr; https://github.com/tiannian" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:dtiannian@aliyun.com" title="E-Mail &rarr; mailto:dtiannian@aliyun.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#original-schnorr-scheme"><span class="nav-text">Original Schnorr Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-of-original-schnorr-scheme"><span class="nav-text">Problem of Original Schnorr Scheme</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiannian Du</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'zEfVVP3bT5NRhSwrhAcIk1i0-gzGzoHsz',
+        appKey: 'gkh9e9g9vI4JToD9nAyg4rvO',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+    overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

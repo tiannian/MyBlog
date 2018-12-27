@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://tiannian.github.io/"/>
+  <updated>2018-12-27T11:01:22.203Z</updated>
+  <id>https://tiannian.github.io/</id>
+  
+  <author>
+    <name>Tiannian Du</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Schnorr Scheme</title>
+    <link href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/"/>
+    <id>https://tiannian.github.io/2018/12/27/Schnorr-Scheme/</id>
+    <published>2018-12-27T07:25:46.000Z</published>
+    <updated>2018-12-27T11:01:22.203Z</updated>
+    
+    <content type="html"><![CDATA[<p>Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p><p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。</p><p>在这里参考Schnorr的论文与其他的参考资料，解析Schnorr签名的原始机制与实现。最终会解析现在主流的EdDSA的实现ED25519与种对Schnorr签名的应用。</p><a id="more"></a><blockquote><p>本文中所有出现的变量，小写字母表示标量，即一个数字，在这里指整数；大写字母表示离散对数问题中的参数，例如：椭圆曲线中的点。</p></blockquote><h3 id="original-schnorr-scheme">Original Schnorr Scheme</h3><p>原始的Schnorr签名是一个交互式的签名机制。允许在任何拥有相同生成元（指在离散对数问题中）的协议参与者双方，证明某一方拥有私钥 <span class="math inline">\(x\)</span> 而不需要直接交换它。其中双方都拥有的生成元设为 <span class="math inline">\(G\)</span> ，证明者拥有私钥 <span class="math inline">\(x\)</span> 。验证者从证明者处取得 <span class="math inline">\(Y\)</span> ，其中 <span class="math inline">\(Y = xG\)</span>，<span class="math inline">\(Y\)</span> 即公钥。</p><p>Original Schnorr Signature的协议流程如下：</p><ol type="1"><li>证明者随机选择一个标量 <span class="math inline">\(r_1\)</span>，然后计算出 <span class="math inline">\(R = r_1G\)</span>。并将 <span class="math inline">\(R\)</span> 发送至验证者。</li><li>验证者回应一个随机的标量 <span class="math inline">\(r_2\)</span>。</li><li>证明者回应一个标量<span class="math inline">\(s\)</span>，通过公式 <span class="math inline">\(s = r_1 + r_2x\)</span> 计算。</li></ol><p>因为离散对数问题是困难的，因此验证者不会知道 <span class="math inline">\(x, r_1\)</span>的值，验证者仅知道由 <span class="math inline">\(x, r_1\)</span>计算得到的 <span class="math inline">\(Y, R\)</span>。但是验证者可以通过以下计算来验证<span class="math inline">\(s\)</span>是正确的：</p><ul><li>由于<span class="math inline">\(s = r_1 + r_2x\)</span>，等式两边同时添加相同的生成元可得 <span class="math inline">\(sG = r_1G + r_2xG\)</span>。</li><li>由于<span class="math inline">\(R = r_1G\)</span>，<span class="math inline">\(Y = xG\)</span>，可以化简得到 <span class="math inline">\(sG = R + r_2Y\)</span>。</li></ul><p>其中 <span class="math inline">\(G\)</span> 是生成元，双方都可知，<span class="math inline">\(R, Y, s, r_2\)</span> 验证者都知道，所以验证者可以轻松验证化简过的公式。</p><p>这个过程是零知识的，因为验证者并不能得到私钥 <span class="math inline">\(x\)</span> 的值，却可以通过计算与通讯的方式验证证明者确实拥有私钥 <span class="math inline">\(x\)</span>。</p><h3 id="problem-of-original-schnorr-scheme">Problem of Original Schnorr Scheme</h3><p>然而这样交互式的过程，会导致验证者通过"fork"的方式获得私钥 <span class="math inline">\(x\)</span>。验证者只需要简单的提供两个不同的随机值 <span class="math inline">\(r_2^1, r_2^2\)</span>，并要求证明者计算 <span class="math inline">\(s_1 = r_1 + r_2^1x, s_2 = r_1 + r_2^2x\)</span>，即可计算出<span class="math inline">\(x = (s_1 - s_2)/(r_2^1 - r_2^2)\)</span>。这样一来，这个过程便无法公开的验证，因为一旦两个验证者相互串通，交换自己得到的值，便可以推出私钥<span class="math inline">\(x\)</span>。</p><p>为了解决这个问题，后续将会通过对现有的协议进行Fiat–Shamir变换，使用Random oracles改造这个算法来使Schnorr原始的Schnorr Scheme变成可公开验证的非交互式算法。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。&lt;/p&gt;
+&lt;p&gt;经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。&lt;/p&gt;
+&lt;p&gt;在这里参考Schnorr的论文与其他的参考资料，解析Schnorr签名的原始机制与实现。最终会解析现在主流的EdDSA的实现ED25519与种对Schnorr签名的应用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="cryptography" scheme="https://tiannian.github.io/tags/cryptography/"/>
+    
+      <category term="schnorr scheme" scheme="https://tiannian.github.io/tags/schnorr-scheme/"/>
+    
+      <category term="digital signature" scheme="https://tiannian.github.io/tags/digital-signature/"/>
+    
+      <category term="ED25519" scheme="https://tiannian.github.io/tags/ED25519/"/>
+    
+      <category term="EdDSA" scheme="https://tiannian.github.io/tags/EdDSA/"/>
+    
+  </entry>
+  
+</feed>
