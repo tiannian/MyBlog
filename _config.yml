@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: 
+url: https://tiannian.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -81,3 +81,4 @@ deploy:
   type: git
   repository: git@github.com:tiannian/tiannian.github.io.git
   branch: master
+  
