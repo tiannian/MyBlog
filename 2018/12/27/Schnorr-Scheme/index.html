@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="">
+<html class="theme-next mist use-motion" lang="zh,en,default">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,16 +63,16 @@
 <link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+  <link rel="mask-icon" href="/images/logo.jpg?v=6.6.0" color="#222">
 
 
 
@@ -110,24 +110,24 @@
 
 
 
-  <meta name="description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
+  <meta name="description" content="Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，实现了高性能的数字签名，以及包括环签名，门限签名等复杂签名机制。 在这里参考Schn">
 <meta name="keywords" content="cryptography,schnorr scheme,digital signature,ED25519,EdDSA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Schnorr Scheme">
+<meta property="og:title" content="数字签名机制 - Schnorr Scheme">
 <meta property="og:url" content="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-27T11:01:22.203Z">
+<meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，实现了高性能的数字签名，以及包括环签名，门限签名等复杂签名机制。 在这里参考Schn">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-12-30T03:04:40.740Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Schnorr Scheme">
-<meta name="twitter:description" content="Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。 在这里参考Schnorr的论文与其他的参考资料">
+<meta name="twitter:title" content="数字签名机制 - Schnorr Scheme">
+<meta name="twitter:description" content="Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。 经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，实现了高性能的数字签名，以及包括环签名，门限签名等复杂签名机制。 在这里参考Schn">
 
 
   
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="NianZhe" type="application/atom+xml">
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Schnorr Scheme | Hexo</title>
+  <title>数字签名机制 - Schnorr Scheme | NianZhe</title>
   
 
 
@@ -183,7 +183,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh">
 
   
   
@@ -201,10 +201,14 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">NianZhe</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Nian is made up by Jin and Xin</h1>
+      
     
     
   </div>
@@ -239,6 +243,23 @@
     
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -345,7 +366,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="NianZhe">
     </span>
 
     
@@ -353,11 +374,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Schnorr Scheme
+          <h2 class="post-title" itemprop="name headline">数字签名机制 - Schnorr Scheme
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -379,12 +400,24 @@
                 
               
 
-              <time title="Created: 2018-12-27 15:25:46 / Modified: 19:01:22" itemprop="dateCreated datePublished" datetime="2018-12-27T15:25:46+08:00">2018-12-27</time>
+              <time title="Created: 2018-12-27 15:25:46" itemprop="dateCreated datePublished" datetime="2018-12-27T15:25:46+08:00">2018-12-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-30 11:04:40" itemprop="dateModified" datetime="2018-12-30T11:04:40+08:00">2018-12-30</time>
               
             
           </span>
@@ -407,7 +440,7 @@
 
           
           
-             <span id="/2018/12/27/Schnorr-Scheme/" class="leancloud_visitors" data-flag-title="Schnorr Scheme">
+             <span id="/2018/12/27/Schnorr-Scheme/" class="leancloud_visitors" data-flag-title="数字签名机制 - Schnorr Scheme">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -421,6 +454,34 @@
 
           
 
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
           
 
           
@@ -438,15 +499,19 @@
       
 
       
-        <p>Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p>
-<p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。</p>
-<p>在这里参考Schnorr的论文与其他的参考资料，解析Schnorr签名的原始机制与实现。最终会解析现在主流的EdDSA的实现ED25519与种对Schnorr签名的应用。</p>
+        <p>Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p>
+<p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，实现了高性能的数字签名，以及包括环签名，门限签名等复杂签名机制。</p>
+<p>在这里参考Schnorr的论文与其他的参考资料，分析Schnorr机制的原始机制与实现。并分析现在主流的EdDSA的实现ED25519，以及如何在Schnorr机制上建立的复杂签名机制。</p>
 <a id="more"></a>
+<ol type="1">
+<li><a href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/">数字签名机制 - Schnorr Scheme</a></li>
+<li><a href="https://tiannian.github.io/2018/12/28/ed25519/">数字签名机制- ED25519</a></li>
+</ol>
 <blockquote>
 <p>本文中所有出现的变量，小写字母表示标量，即一个数字，在这里指整数；大写字母表示离散对数问题中的参数，例如：椭圆曲线中的点。</p>
 </blockquote>
 <h3 id="original-schnorr-scheme">Original Schnorr Scheme</h3>
-<p>原始的Schnorr签名是一个交互式的签名机制。允许在任何拥有相同生成元（指在离散对数问题中）的协议参与者双方，证明某一方拥有私钥 <span class="math inline">\(x\)</span> 而不需要直接交换它。其中双方都拥有的生成元设为 <span class="math inline">\(G\)</span> ，证明者拥有私钥 <span class="math inline">\(x\)</span> 。验证者从证明者处取得 <span class="math inline">\(Y\)</span> ，其中 <span class="math inline">\(Y = xG\)</span>，<span class="math inline">\(Y\)</span> 即公钥。</p>
+<p>原始的Schnorr机制是一个交互式的机制。允许在任何拥有相同生成元（指在离散对数问题中）的协议参与者双方，证明某一方拥有私钥 <span class="math inline">\(x\)</span> 而不需要直接交换它。其中双方都拥有的生成元设为 <span class="math inline">\(G\)</span> ，证明者拥有私钥 <span class="math inline">\(x\)</span> 。验证者从证明者处取得 <span class="math inline">\(Y\)</span> ，其中 <span class="math inline">\(Y = xG\)</span>，<span class="math inline">\(Y\)</span> 即公钥。</p>
 <p>Original Schnorr Signature的协议流程如下：</p>
 <ol type="1">
 <li>证明者随机选择一个标量 <span class="math inline">\(r_1\)</span>，然后计算出 <span class="math inline">\(R = r_1G\)</span>。并将 <span class="math inline">\(R\)</span> 发送至验证者。</li>
@@ -463,6 +528,11 @@
 <h3 id="problem-of-original-schnorr-scheme">Problem of Original Schnorr Scheme</h3>
 <p>然而这样交互式的过程，会导致验证者通过"fork"的方式获得私钥 <span class="math inline">\(x\)</span>。验证者只需要简单的提供两个不同的随机值 <span class="math inline">\(r_2^1, r_2^2\)</span>，并要求证明者计算 <span class="math inline">\(s_1 = r_1 + r_2^1x, s_2 = r_1 + r_2^2x\)</span>，即可计算出<span class="math inline">\(x = (s_1 - s_2)/(r_2^1 - r_2^2)\)</span>。这样一来，这个过程便无法公开的验证，因为一旦两个验证者相互串通，交换自己得到的值，便可以推出私钥<span class="math inline">\(x\)</span>。</p>
 <p>为了解决这个问题，后续将会通过对现有的协议进行Fiat–Shamir变换，使用Random oracles改造这个算法来使Schnorr原始的Schnorr Scheme变成可公开验证的非交互式算法。</p>
+<h3 id="fiatshamir-and-random-oracles">Fiat–Shamir and Random oracles</h3>
+<p>上述原始Schnorr Scheme中存在的私钥泄露问题使得算法无法在公开的环境下使用。通过将原始的交互式协议转变为非交互式协议可以解决这个问题。</p>
+<p>Fiat–Shamir变换是一种利用交互式零知识证明方案创建数字签名的方式。根据Fiat–Shamir变换，我们可以将原始方案中的证明者采用随机数预言机（Random oracle）来代替，利用这样的方式构造数字签名。</p>
+<p>随机数预言机，即随机数函数，是一种针对任意输入得到的输出之间是项目独立切均匀分布的函数。理想的随机数预言机并不存在，在实现中，经常采用密码学哈希函数作为随机数预言机。</p>
+<p>原本的设计中，Schnorr签名是一种交互式协议，需要一个实际存在的验证者与参与者，而根据Fiat-Shamir转换，可以将具体的验证者采用随机数预言机来代替。将验证者替换为随机数预言机后，外部的验证者便无法通过交换 <span class="math inline">\(r_2\)</span>来推出私钥 <span class="math inline">\(x\)</span> ，原本的 <span class="math inline">\(r_2\)</span> 采用随机数预言机产生的随机数来表示。</p>
 
       
     </div>
@@ -496,7 +566,7 @@
   <li class="post-copyright-link">
     <strong>Post link: </strong>
     
-    <a href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/" title="Schnorr Scheme">https://tiannian.github.io/2018/12/27/Schnorr-Scheme/</a>
+    <a href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/" title="数字签名机制 - Schnorr Scheme">https://tiannian.github.io/2018/12/27/Schnorr-Scheme/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
@@ -526,6 +596,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/28/ed25519/" rel="prev" title="数字签名机制 - ED25519">
+                数字签名机制 - ED25519 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -596,7 +682,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -608,7 +694,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -621,9 +707,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -699,7 +789,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#original-schnorr-scheme"><span class="nav-text">Original Schnorr Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-of-original-schnorr-scheme"><span class="nav-text">Problem of Original Schnorr Scheme</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#original-schnorr-scheme"><span class="nav-text">Original Schnorr Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-of-original-schnorr-scheme"><span class="nav-text">Problem of Original Schnorr Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fiatshamir-and-random-oracles"><span class="nav-text">Fiat–Shamir and Random oracles</span></a></li></ol></div>
             
 
           </div>
@@ -1278,6 +1368,11 @@
   
 
   
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
 
   
 

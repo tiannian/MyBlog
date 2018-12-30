@@ -110,13 +110,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="NianZhe">
-<meta property="og:url" content="https://tiannian.github.io/tags/ED25519/index.html">
+  <meta name="description" content="Strobe是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。 Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash functi">
+<meta name="keywords" content="cryptography,strobe protocol framework,keccak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Strobe protocol framework分析 - Sponge Construction">
+<meta property="og:url" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/index.html">
 <meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="Strobe是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。 Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash functi">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/f.png">
+<meta property="og:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/split.png">
+<meta property="og:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/message.png">
+<meta property="og:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/squeeze.png">
+<meta property="og:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/duplex.png">
+<meta property="og:updated_time" content="2018-12-30T03:04:40.745Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NianZhe">
+<meta name="twitter:title" content="Strobe protocol framework分析 - Sponge Construction">
+<meta name="twitter:description" content="Strobe是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。 Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash functi">
+<meta name="twitter:image" content="https://tiannian.github.io/2018/12/28/Strobe-Sponge/f.png">
 
 
 
@@ -125,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="https://tiannian.github.io/tags/ED25519/">
+  <link rel="canonical" href="https://tiannian.github.io/2018/12/28/Strobe-Sponge/">
 
 
 
@@ -135,7 +146,7 @@
   };
 </script>
 
-  <title>Tag: ED25519 | NianZhe</title>
+  <title>Strobe protocol framework分析 - Sponge Construction | NianZhe</title>
   
 
 
@@ -183,7 +194,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -242,7 +253,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -289,22 +300,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -350,82 +345,299 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>ED25519<small>Tag</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/28/Strobe-Sponge/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/28/ed25519/" itemprop="url">
-              
-                <span itemprop="name">数字签名机制 - ED25519</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Strobe protocol framework分析 - Sponge Construction
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-28T10:35:12+08:00" content="2018-12-28">
-          12-28
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-28 16:33:28" itemprop="dateCreated datePublished" datetime="2018-12-28T16:33:28+08:00">2018-12-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-30 11:04:40" itemprop="dateModified" datetime="2018-12-30T11:04:40+08:00">2018-12-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/28/Strobe-Sponge/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/28/Strobe-Sponge/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/28/Strobe-Sponge/" class="leancloud_visitors" data-flag-title="Strobe protocol framework分析 - Sponge Construction">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/27/Schnorr-Scheme/" itemprop="url">
-              
-                <span itemprop="name">数字签名机制 - Schnorr Scheme</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-27T15:25:46+08:00" content="2018-12-27">
-          12-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p><a href="https://strobe.sourceforge.io/" target="_blank" rel="noopener">Strobe</a>是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。</p>
+<p>Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash function），消息认证码（Message authentication code）等机制；可以构建对称加密机制，数字签名机制（通过Schnorr Scheme），密钥交换机制（通过DH算法），以及TLS等类似的密码协议。</p>
+<p>在这里将会分析Strobe协议的组成以及其原理，以及如何在Strobe上构建密码协议。</p>
+<p>在分析Strobe协议之前，首先需要明确什么是海绵结构。</p>
+<a id="more"></a>
+<ol type="1">
+<li><a href="https://tiannian.github.io/2018/12/28/strobe-sponge/">Strobe protocol framework - Sponge Construction</a></li>
+</ol>
+<p>海绵结构（Sponge Construction）是Keccak提出的一种密码学函数。最开始的海绵结构是为构造密码学哈希函数所设计。后来发现通过海绵结构不仅仅适用于具有固定输出长度的密码学哈希函数，同样也适用于具有固定输入长度的流密码机制。</p>
+<p>现有的的哈希函数可以将任意长度的输入映射为固定长度输出（实际上包括SHA2在内的密码学哈希函数也都做不到任意长度的输入，只不过是因为现有的密码学哈希函数可容纳的输入长度上限太大，近似的看作输入长度无限），而海绵结构则是可以将任意长度的输入映射为任意长度的输出。同时它的输出就像是一个随机数预言机（Random Oracle），能够保证输出的随机性。</p>
+<h2 id="cryptographic-sponge-functions">Cryptographic Sponge Functions</h2>
+<p>说了这么多，到底什么是海绵结构呢？</p>
+<p>在密码学中的“海绵”，比较正式的说法应该是密码学海绵函数（Cryptographic Sponge Functions）。这个函数就像是一个海绵一样，能够不断，多次的输入来自外部的数据；同时也能够像挤海绵里的水一样，多次向外输出数据。不同于现实中的海绵，这里的海绵是可以无限的输入数据，也可以无限的输出数据。</p>
+<p>海绵结构是一个简单的迭代的结构。构造一个海绵结构需要两个元素：一个长度为<span class="math inline">\(b\)</span>的状态<span class="math inline">\(S\)</span>（state），在状态上展开迭代过程；以及一个用于操作状态，输入和输入长度都为<span class="math inline">\(b\)</span>的排列函数<span class="math inline">\(f\)</span>。</p>
+<p><img src="f.png"></p>
+<p>实际上这里的函数<span class="math inline">\(f\)</span>是一个纯函数，它接收状态作为传入，返回的是经过它处理后的状态。</p>
+<p>而被传入函数<span class="math inline">\(f\)</span>的状态<span class="math inline">\(S\)</span>被分为两部分，分别是长度为<span class="math inline">\(r\)</span>的公共部分<span class="math inline">\(R\)</span>（rate），和长度为<span class="math inline">\(c\)</span>的私有部分<span class="math inline">\(C\)</span>（capacity）。</p>
+<p><img src="split.png"></p>
+<p>函数<span class="math inline">\(f\)</span>的作用是根据现有的排列（permutation）来迭代产生新的排列。最新的SHA-3算法采用的同样是海绵结构，它采用的排列函数<span class="math inline">\(f\)</span>是<strong>keccak-f[1600]</strong>。其中的1600代表这个函数的输入是1600位，输出同样是1600位。在Strobe中采用的排列函数<span class="math inline">\(f\)</span>是<strong>keccak-f[b]</strong>，其中<span class="math inline">\(b\)</span>是状态<span class="math inline">\(S\)</span>的长度，根据<strong>keccak-f[b]</strong>的设计，<span class="math inline">\(b\)</span>的取值只能是{200,400,800,1600}，长度单位是bit。</p>
+<h2 id="keccak算法">keccak算法</h2>
+<p>在<strong>keccak</strong>的处理过程中被分为两个过程，第一个部分是吸收过程，第二个部分是挤压过程。</p>
+<p>吸收过程就是将输入的数据输入到海绵结构中。输入数据被填充后分割为多个块，每个块的长度与公共部分<span class="math inline">\(R\)</span>的长度相同，之后不断的将这些块与状态<span class="math inline">\(S\)</span>的公共部分<span class="math inline">\(R\)</span>异或，每次异或后都调用排列函数<span class="math inline">\(f\)</span>。</p>
+<p><img src="message.png"></p>
+<p>整个吸收过程是针对每一个输入数据块<span class="math inline">\(m_i\)</span>执行如下算法： <span class="math display">\[
+(r,c) = f(r \oplus m_i,c)
+\]</span> 吸收过程可以无限制的迭代下去，从这个角度来说，<strong>keccak</strong>可以吸收无限多的数据到状态中。</p>
+<p>挤压过程就是从海绵结构中获得输出。当我们需要从海绵结构中获得输出时，我们从状态的公共部分读取输出，如果长度不够，那么可以利用<span class="math inline">\(f\)</span>去修改状态，继续读取新的公共部分。这个过程可以不断的继续重复下去，直到读取到足够的输出为止。</p>
+<p><img src="squeeze.png"></p>
+<p>这个过程就是现在SHA-3的算法的执行流程。得到的输出就是哈希值。</p>
+<p>实际上这样的海绵结构不仅仅可以用于哈希函数中。由于输入输出长度可变的特性，当输入较长而输出较短的情况适用于HASH，MAC等场景；而当输入较短，输出较长的情况下适用于对称加密流密码的场景。在流密码的场景中，输入的时密钥与nonce值，输出的是密钥流。</p>
+<h2 id="duplex-construction">Duplex construction</h2>
+<p>事实上，海绵结构不仅仅可以一次吸收，一次挤出，它可以不断的重复吸收挤压的过程。<strong>keccak team</strong>提供了一种可以不断交替输入输出数据的结构，被称为双工结构（Duplex construction）。在这种结构允许我们不断的输入，输出，输入，输出数据。这种结构带来了一种好处：每一时刻的输出会受到之前输入与输出的影响。这样的属性可以实现相同操作的副本一致性（transcript consistency）。</p>
+<p><img src="duplex.png"></p>
+<h2 id="summary">Summary</h2>
+<p>这篇文章简单的介绍了keccak团队设计的海绵结构，以及它的工作方式。虽然keccak成为了最新的SHA-3算法标准，但是并不代表keccak只能当作哈希函数来使用。后续将会继续介绍基于keccak构造的密码学协议框架Strobe。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Tiannian Du</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="https://tiannian.github.io/2018/12/28/Strobe-Sponge/" title="Strobe protocol framework分析 - Sponge Construction">https://tiannian.github.io/2018/12/28/Strobe-Sponge/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cryptography/" rel="tag"># cryptography</a>
+          
+            <a href="/tags/strobe-protocol-framework/" rel="tag"># strobe protocol framework</a>
+          
+            <a href="/tags/keccak/" rel="tag"># keccak</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/ed25519/" rel="next" title="数字签名机制 - ED25519">
+                <i class="fa fa-chevron-left"></i> 数字签名机制 - ED25519
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -446,8 +658,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -558,6 +779,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cryptographic-sponge-functions"><span class="nav-text">Cryptographic Sponge Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keccak算法"><span class="nav-text">keccak算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#duplex-construction"><span class="nav-text">Duplex construction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-text">Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -686,6 +924,10 @@
   
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -1090,6 +1332,36 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+    overflow: auto hidden;
+}
+</style>
+
+    
   
 
 

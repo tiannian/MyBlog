@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="">
+<html class="theme-next mist use-motion" lang="zh,en,default">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,16 +63,16 @@
 <link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.jpg?v=6.6.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+  <link rel="mask-icon" href="/images/logo.jpg?v=6.6.0" color="#222">
 
 
 
@@ -111,16 +111,16 @@
 
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="NianZhe">
 <meta property="og:url" content="https://tiannian.github.io/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
+<meta property="og:site_name" content="NianZhe">
+<meta property="og:locale" content="zh">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="NianZhe">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="NianZhe" type="application/atom+xml">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>Hexo</title>
+  <title>NianZhe</title>
   
 
 
@@ -176,7 +176,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh">
 
   
   
@@ -195,10 +195,14 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">NianZhe</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Nian is made up by Jin and Xin</h1>
+      
     
     
   </div>
@@ -233,6 +237,23 @@
     
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -330,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/28/Strobe-Sponge/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tiannian Du">
@@ -339,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="NianZhe">
     </span>
 
     
@@ -347,13 +368,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/12/27/Schnorr-Scheme/" class="post-title-link" itemprop="url">Schnorr Scheme</a>
+                <a href="/2018/12/28/Strobe-Sponge/" class="post-title-link" itemprop="url">Strobe protocol framework分析 - Sponge Construction</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -375,12 +396,445 @@
                 
               
 
-              <time title="Created: 2018-12-27 15:25:46 / Modified: 19:01:22" itemprop="dateCreated datePublished" datetime="2018-12-27T15:25:46+08:00">2018-12-27</time>
+              <time title="Created: 2018-12-28 16:33:28" itemprop="dateCreated datePublished" datetime="2018-12-28T16:33:28+08:00">2018-12-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-30 11:04:40" itemprop="dateModified" datetime="2018-12-30T11:04:40+08:00">2018-12-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/28/Strobe-Sponge/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/28/Strobe-Sponge/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/28/Strobe-Sponge/" class="leancloud_visitors" data-flag-title="Strobe protocol framework分析 - Sponge Construction">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://strobe.sourceforge.io/" target="_blank" rel="noopener">Strobe</a>是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。</p>
+<p>Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash function），消息认证码（Message authentication code）等机制；可以构建对称加密机制，数字签名机制（通过Schnorr Scheme），密钥交换机制（通过DH算法），以及TLS等类似的密码协议。</p>
+<p>在这里将会分析Strobe协议的组成以及其原理，以及如何在Strobe上构建密码协议。</p>
+<p>在分析Strobe协议之前，首先需要明确什么是海绵结构。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/12/28/Strobe-Sponge/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/28/ed25519/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/28/ed25519/" class="post-title-link" itemprop="url">数字签名机制 - ED25519</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-28 10:35:12" itemprop="dateCreated datePublished" datetime="2018-12-28T10:35:12+08:00">2018-12-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-30 11:04:40" itemprop="dateModified" datetime="2018-12-30T11:04:40+08:00">2018-12-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/28/ed25519/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/28/ed25519/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/28/ed25519/" class="leancloud_visitors" data-flag-title="数字签名机制 - ED25519">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ED25519是一种EdDSA算法，是一种在扭曲爱德华兹曲线（Twisted Edwards curves）上使用Schnorr机制来实现的一种数字签名机制。它具有速度快，密钥较短，安全性高等优点。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/12/28/ed25519/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2018/12/27/Schnorr-Scheme/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/27/Schnorr-Scheme/" class="post-title-link" itemprop="url">数字签名机制 - Schnorr Scheme</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-27 15:25:46" itemprop="dateCreated datePublished" datetime="2018-12-27T15:25:46+08:00">2018-12-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-30 11:04:40" itemprop="dateModified" datetime="2018-12-30T11:04:40+08:00">2018-12-30</time>
               
             
           </span>
@@ -403,7 +857,7 @@
 
           
           
-             <span id="/2018/12/27/Schnorr-Scheme/" class="leancloud_visitors" data-flag-title="Schnorr Scheme">
+             <span id="/2018/12/27/Schnorr-Scheme/" class="leancloud_visitors" data-flag-title="数字签名机制 - Schnorr Scheme">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -417,6 +871,34 @@
 
           
 
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
           
 
           
@@ -435,9 +917,9 @@
 
       
         
-          <p>Schnorr签名机制是一种基于离散对数难题的数字签名机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种数字签名机制具有实现简单，签名验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p>
-<p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，包括环签名，门限签名等机制。</p>
-<p>在这里参考Schnorr的论文与其他的参考资料，解析Schnorr签名的原始机制与实现。最终会解析现在主流的EdDSA的实现ED25519与种对Schnorr签名的应用。</p>
+          <p>Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。</p>
+<p>经过这些年的发展，在原始的Schnorr机制上实现了多种多样的改进与功能，实现了高性能的数字签名，以及包括环签名，门限签名等复杂签名机制。</p>
+<p>在这里参考Schnorr的论文与其他的参考资料，分析Schnorr机制的原始机制与实现。并分析现在主流的EdDSA的实现ED25519，以及如何在Schnorr机制上建立的复杂签名机制。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -529,7 +1011,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -541,7 +1023,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -554,9 +1036,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -1157,6 +1643,10 @@
         
       
     
+      
+    
+      
+    
   
 
   
@@ -1196,6 +1686,11 @@
   
 
   
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
 
   
 
