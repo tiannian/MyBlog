@@ -5,6 +5,7 @@ tags:
 - cryptography
 - strobe protocol framework
 - keccak
+- SHA3
 mathjax: true
 ---
 
@@ -66,7 +67,7 @@ $$
 
 ## Duplex construction
 
-事实上，海绵结构不仅仅可以一次吸收，一次挤出，它可以不断的重复吸收挤压的过程。**keccak team**提供了一种可以不断交替输入输出数据的结构，被称为双工结构（Duplex construction）。在这种结构允许我们不断的输入，输出，输入，输出数据。这种结构带来了一种好处：每一时刻的输出会受到之前输入与输出的影响。这样的属性可以实现相同操作的副本一致性（transcript consistency）。
+事实上，海绵结构不仅仅可以一次吸收，一次挤出，它可以不断的重复吸收挤压的过程。**keccak team**提供了一种可以不断交替输入输出数据的结构，被称为双工结构（Duplex construction）。在这种结构允许我们不断的输入，输出，输入，输出数据。这种结构带来了一种好处：每一时刻的输出会受到之前输入与输出的影响。这样的属性可以实现相同操作的副本一致性（transcript consistency），也就意味着当不同的副本执行相同的操作，各个副本所维护的海绵结构可以保持一致性。
 
 ![](duplex.png)
 
