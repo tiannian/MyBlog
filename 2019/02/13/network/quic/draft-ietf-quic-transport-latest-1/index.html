@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="SGzeqKvjdGqch0ovbdlwxpgnCEucOoqmlXohHGweSFU">
+
+
+
+  <meta name="msvalidate.01" content="D2721FD7B373C5B70A888A8DE6FFECA4">
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eQdah9R9Hx">
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Abstract 本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。">
+<meta name="keywords" content="QUIC,translate,RFC,Protocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
+<meta property="og:url" content="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/index.html">
+<meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="Abstract 本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-02-13T13:11:40.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
+<meta name="twitter:description" content="Abstract 本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NianZhe" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1. | NianZhe</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NianZhe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Nian is made up by Jin and Xin</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">6</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/tiannian" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-13 11:09:28 / Modified: 21:11:40" itemprop="dateCreated datePublished" datetime="2019-02-13T11:09:28+08:00">2019-02-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" class="leancloud_visitors" data-flag-title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article"></span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time"></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="abstract">Abstract</h2>
+<p>本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。</p>
+<a id="more"></a>
+<h3 id="简介">1. 简介</h3>
+<p>QUIC是一种多路复用且安全的通用传输协议，它具有如下特性：</p>
+<ul>
+<li>流复用</li>
+<li>流和连接级控制</li>
+<li>低延迟连接建立</li>
+<li>连接迁移和弹性的NAT重绑定</li>
+<li>经过加密与认证的包头和负载</li>
+</ul>
+<p>QUIC使用UDP作为基础，以避免需要更改旧版客户端操作系统和中间件。 QUIC验证其所有包头并加密它交换的大多数数据，包括其信令，以避免引起对中间件的依赖。</p>
+<h4 id="文档结构">1.1 文档结构</h4>
+<p>本文档描述了核心QUIC协议，其结构如下。</p>
+<ul>
+<li>流是QUIC提供的基本服务抽象。
+<ul>
+<li><strong>第2节</strong> 描述了与流相关的核心概念，</li>
+<li><strong>第3节</strong> 提供了流的参考模型，</li>
+<li><strong>第4节</strong> 概述了流量控制的操作。</li>
+</ul></li>
+<li>连接是QUIC端点进行通信的主体。
+<ul>
+<li><strong>第5节</strong> 描述了流相关的核心概念，</li>
+<li><strong>第6节</strong> 描述了版本协商，</li>
+<li><strong>第7节</strong> 详细描述了建立连接的过程，</li>
+<li><strong>第8节</strong> 明确关键的拒绝服务缓解机制，</li>
+<li><strong>第9节</strong> 描述了端点如何迁移连接到新的网络路径上，</li>
+<li><strong>第10节</strong> 列出了结束已经打开的流的选项，</li>
+<li><strong>第11节</strong> 提供了对错误处理的通用指导</li>
+</ul></li>
+<li>数据包和数据帧是QUIC通讯的基础单元。
+<ul>
+<li><strong>第12节</strong> 描述了数据包和数据帧相关的概念，</li>
+<li><strong>第13节</strong> 定义了传输，重传，和确认的模型</li>
+<li><strong>第14节</strong> 明确了管理数据包大小的规则</li>
+</ul></li>
+<li>最后，QUIC协议元素的编码细节描述如下：
+<ul>
+<li><strong>第15节</strong> （版本）</li>
+<li><strong>第16节</strong> （整数编码）</li>
+<li><strong>第17节</strong> （数据包头）</li>
+<li><strong>第18节</strong> （传输参数）</li>
+<li><strong>第19节</strong> （数据帧）</li>
+<li><strong>第18节</strong> （错误）</li>
+</ul></li>
+</ul>
+<p>随附文档描述了QUIC的丢失检测和拥塞控制[QUIC-RECOVERY]，以及使用TLS进行密钥协商[QUIC-TLS]。</p>
+<p>本文档定义了QUIC版本1，它符合[QUIC-INVARIANTS]中的协议不变量。</p>
+<h4 id="公约和定义">1.2 公约和定义</h4>
+<blockquote>
+<p>略</p>
+</blockquote>
+<h4 id="符号约定">1.3 符号约定</h4>
+<p>本文档中的数据包和框架图使用[RFC2360]第3.1节中描述的格式，并附带以下附加约定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[x]: 表示x是可选的</span><br><span class="line">x(A): 表示x有A bit长</span><br><span class="line">x(A/B/C): 表示x有A，B或C bit长</span><br><span class="line">x(i): 表示x使用第16节描述的可变长编码</span><br><span class="line">x(*): 表示x是可变长度的</span><br></pre></td></tr></table></figure>
+<h3 id="流">2. 流</h3>
+<p>QUIC中的流为应用程序提供轻量级，有序的字节流抽象。 从另一个角度来说流是QUIC作为弹性的消息抽象。</p>
+<p>可以通过发送数据来创建流。与流管理相关的过程（结束，取消和流控制）都旨在实现最小的开销。例如，单个STREAM帧可以打开流，携带数据或关闭流。流也可以是长期存在的，并且可以持续整个连接的持续时间。</p>
+<p>流可以由任一端点创建，可以同时发送与其他流不同的数据，并且可以被取消。 QUIC没有提供任何确保不同流之间字节排序的方法。</p>
+<p>QUIC允许任意数量的流同时运行，并且可以在任何流上发送任意数量的数据，受流控制约束（参见第4节）和流限制。</p>
+<h4 id="流类型与识别码">2.1 流类型与识别码</h4>
+<p>流可以是单向的或双向的。单向流在一个方向上传输数据：从流的发起者到对等方。双向流允许数据在两个方向上发送。</p>
+<p>通过数值在连接中标识流，称为流ID。流ID对于流是唯一的。 QUIC端点绝不能重用连接中的流ID。流ID被编码为可变长度整数（参见第16节）。</p>
+<p>流ID的最低有效位（0x1）标识流的发起者。客户端发起的流具有偶数编号的流ID（位设置为0），服务器发起的流具有奇数编号的流ID（位设置为1）。</p>
+<p>流ID的第二个最低有效位（0x2）区分双向流（位设置为0）和单向流（位设置为1）。</p>
+<p>因此，来自流ID的最低有效两位将流识别为四种类型之一，如表1中所总结的。</p>
+<table>
+<thead>
+<tr class="header">
+<th>掩码</th>
+<th>发起者</th>
+<th>流类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0x1</td>
+<td>客户端发起</td>
+<td>双向流</td>
+</tr>
+<tr class="even">
+<td>0x2</td>
+<td>服务端发起</td>
+<td>双向流</td>
+</tr>
+<tr class="odd">
+<td>0x3</td>
+<td>客户端发起</td>
+<td>单向流</td>
+</tr>
+<tr class="even">
+<td>0x4</td>
+<td>服务端发起</td>
+<td>单向流</td>
+</tr>
+</tbody>
+</table>
+<p>在每种类型中，使用数字增加的流ID创建流。不按顺序使用的流ID将会导致该类型的所有具有较低编号的流ID的流也被打开。</p>
+<p>客户端打开的第一个双向流的流ID为0。</p>
+<h4 id="接收和发送数据">2.2 接收和发送数据</h4>
+<p>STREAM帧封装了应用程序发送的数据。端点使用STREAM帧中的Stream ID和Offset字段按顺序放置数据。</p>
+<p>端点必须能够将流数据作为有序字节流传递给应用程序。提供有序的字节流要求端点缓冲任何无序接收的数据，直到宣称流量控制限制。</p>
+<p>QUIC没有特别规定无序传输流数据。但是，实现可以选择提供将数据无序传递到接收应用程序的能力。</p>
+<p>端点可以多次接收相同流偏移的流的数据。已经收到的数据可以被丢弃。如果多次发送，给定偏移量的数据不得改变;端点可以将流中相同偏移量的不同数据的接收视为PROTOCOL_VIOLATION类型的连接错误。</p>
+<p>Streams是一种有序的字节流抽象，QUIC中不存在其他可见的结构。当数据传输，数据包丢失后重传数据或者数据在接收器传送到应用程序时，预计不会保留STREAM帧边界。【TODO】</p>
+<p>端点不得在任何流上发送数据，而不确保它在同级设置的流量控制限制范围内。流量控制在第4节中详细描述。【TODO】</p>
+<h4 id="流优先级">2.3 流优先级</h4>
+<p>如果分配给流的资源被正确地优先化，则流复用可以对应用性能产生显着影响。</p>
+<p>QUIC不提供交换优先级信息的框架。相反，它依赖于从使用QUIC的应用程序接收优先级信息。</p>
+<p>QUIC实现应该提供应用程序可以指示流的相对优先级的方式。在决定将资源专用于哪些流时，实现应该使用应用程序提供的信息。</p>
+<h3 id="流状态">3. 流状态</h3>
+<p>本节按发送或接收组件描述流。描述了两个状态机：一个是使用流传输数据时端点的状态机（第3.1节），一个是使用流接收数据时端点的状态机（第3.2节）。</p>
+<p>单向流直接使用适用的状态机。双向流使用两个状态机。在大多数情况下，无论流是单向还是双向，这些状态机的使用都是相同的。打开流的条件对于双向流来说稍微复杂一些，因为发送侧或接收侧的打开导致流在两个方向上打开。</p>
+<p>端点必须按流ID的递增顺序打开相同类型的流。</p>
+<blockquote>
+<p>备注：这些状态机的信息很大。本文档使用流状态来描述何时以及如何发送不同类型的帧以及在接收到不同类型的帧时预期的反应的规则。虽然这些状态机旨在用于实现QUIC，但这些状态并非旨在约束实现。实现可以定义不同的状态机，只要其行为与实现这些状态的实现一致即可。</p>
+</blockquote>
+<h4 id="发送流状态">3.1 发送流状态</h4>
+<p>图1显示了将数据发送到对等方的流的一部分的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">    o</span><br><span class="line">    | Create Stream (Sending)</span><br><span class="line">    | Peer Creates Bidirectional Stream</span><br><span class="line">    v</span><br><span class="line">+-------+</span><br><span class="line">| Ready | Send RESET_STREAM</span><br><span class="line">|       |-----------------------.</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Send STREAM /             |</span><br><span class="line">    |      STREAM_DATA_BLOCKED  |</span><br><span class="line">    |                           |</span><br><span class="line">    | Peer Creates              |</span><br><span class="line">    |      Bidirectional Stream |</span><br><span class="line">    v                           |</span><br><span class="line">+-------+                       |</span><br><span class="line">| Send  | Send RESET_STREAM     |</span><br><span class="line">|       |----------------------&gt;|</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Send STREAM + FIN         |</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  | Send RESET_STREAM | Reset |</span><br><span class="line">| Sent  |------------------&gt;| Sent  |</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv All ACKs             | Recv ACK</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  |                   | Reset |</span><br><span class="line">| Recvd |                   | Recvd |</span><br><span class="line">+-------+                   +-------+</span><br></pre></td></tr></table></figure>
+<p>端点启动的流的发送部分（客户端类型0和2，服务器类型1和3）由应用程序打开。 <code>Ready</code>状态表示新创建的流，该流能够接受来自应用程序的数据。可以在此状态下缓冲流数据以准备发送。</p>
+<p>发送第一个STREAM或STREAM_DATA_BLOCKED帧会导致流的发送部分进入<code>Send</code>状态。实现可以选择直到它发送第一帧并进入该状态时再将流ID分配给流，这可以允许更好的流优先级。</p>
+<p>由对等方发起的双向流的发送部分（服务器类型0，客户端类型1）进入<code>Ready</code>状态时，如果接收部分进入<code>Recv</code>状态则立即转换到<code>Send</code>状态（第3.2节）。</p>
+<p>在<code>Send</code>状态中，端点通过STEAM帧发送（在必要时重新发送 ）流数据。端点遵守其对等方设置的流量控制限制，并继续接受和处理MAX_STREAM_DATA帧。如果它被流量控制阻塞通过流或者连接发送数据，则<code>Send</code>状态的端点会生成STREAM_DATA_BLOCKED帧。</p>
+<p>在应用程序指示已发送所有流数据并且发送包含FIN位的STREAM帧之后，流的发送部分进入<code>Data Sent</code>状态。从该状态开始，端点仅在必要时重传流数据。端点不需要检查流控制限制，也不需要为此状态的流发送STREAM_DATA_BLOCKED帧。可以接收MAX_STREAM_DATA帧，直到对等体接收到最终流偏移。端点可以安全地忽略它从对等端接收到的处于此状态的流的任何MAX_STREAM_DATA帧。</p>
+<p>一旦成功确认了所有流数据，流的发送部分就进入<code>Data Recvd</code>状态，这是一种结束状态。</p>
+<p>从任何<code>Ready</code>，<code>Send</code>或<code>Data Sent</code>状态，应用程序可以发信号通知它希望放弃流数据的传输。或者，端点可能从其对等端接收STOP_SENDING帧。在任何一种情况下，端点都会发送RESET_STREAM帧，这会导致流进入<code>Reset Sent</code>状态。</p>
+<p>端点可以发送RESET_STREAM作为提及流的第一帧，这会导致该流的发送部分打开，然后立即转换到<code>Reset Sent</code>状态。</p>
+<p>一旦确认了包含RESET_STREAM的分组，则流的发送部分进入<code>Reset Recvd</code>状态，这是终结状态。</p>
+<h4 id="接收流状态">3.2 接收流状态</h4>
+<p>图2显示了从对等方接收数据的流部分的状态。接收流的一部分的状态仅镜像对等体流的发送部分的一些状态。流的接收部分不跟踪发送部分上无法观察到的状态，例如<code>Ready</code>状态。相反，流的接收部分跟踪向应用程序传送数据，其中一些数据不能被发送者观察到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">    o</span><br><span class="line">    | Recv STREAM / STREAM_DATA_BLOCKED / RESET_STREAM</span><br><span class="line">    | Create Bidirectional Stream (Sending)</span><br><span class="line">    | Recv MAX_STREAM_DATA / STOP_SENDING (Bidirectional)</span><br><span class="line">    | Create Higher-Numbered Stream</span><br><span class="line">    v</span><br><span class="line">+-------+</span><br><span class="line">| Recv  | Recv RESET_STREAM</span><br><span class="line">|       |-----------------------.</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv STREAM + FIN         |</span><br><span class="line">    v                           |</span><br><span class="line">+-------+                       |</span><br><span class="line">| Size  | Recv RESET_STREAM     |</span><br><span class="line">| Known |----------------------&gt;|</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv All Data             |</span><br><span class="line">    v                           v</span><br><span class="line">+-------+ Recv RESET_STREAM +-------+</span><br><span class="line">| Data  |--- (optional) ---&gt;| Reset |</span><br><span class="line">| Recvd |  Recv All Data    | Recvd |</span><br><span class="line">+-------+&lt;-- (optional) ----+-------+</span><br><span class="line">    |                           |</span><br><span class="line">    | App Read All Data         | App Read RST</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  |                   | Reset |</span><br><span class="line">| Read  |                   | Read  |</span><br><span class="line">+-------+                   +-------+</span><br></pre></td></tr></table></figure>
+<p>当为该流接收到第一个STREAM，STREAM_DATA_BLOCKED或RESET_STREAM时，将创建由对等方发起的流的接收部分（客户端的类型1和3，或服务器的0和2）。对于由对等方发起的双向流，接收流的发送部分的MAX_STREAM_DATA或STOP_SENDING帧也会创建接收部分。流的接收部分的初始状态是<code>Recv</code>。</p>
+<p>当端点发起的双向流的发送部分（客户端类型0，服务器类型1）进入<code>Ready</code>状态时，流的接收部分进入<code>Recv</code>状态。</p>
+<p>当从该流的对等体收到MAX_STREAM_DATA或STOP_SENDING帧时，端点将打开双向流。为未打开的流接收MAX_STREAM_DATA帧表示远程对等体已打开流并提供流控制分数。为未打开的流接收STOP_SENDING帧表示远程对等体不再希望接收此流上的数据。如果数据包丢失或重新排序，则任何一个帧都可能在STREAM或STREAM_DATA_BLOCKED帧之前到达。</p>
+<p>在创建流之前，必须创建具有较低编号的流ID的所有相同类型的流。这可确保流的创建顺序在两个端点上保持一致。</p>
+<p>在“Recv”状态中，端点接收STREAM和STREAM_DATA_BLOCKED帧。传入的数据被缓冲，可以重新组合成正确的顺序以便传送到应用程序。当应用程序使用数据并且缓冲区空间可用时，端点发送MAX_STREAM_DATA帧以允许对等方发送更多数据。</p>
+<p>当接收到具有FIN位的STREAM帧时，流的最终大小是已知的（参见第4.4节）。然后，流的接收部分进入<code>Size Known</code>状态。在此状态下，端点不再需要发送MAX_STREAM_DATA帧，它只接收流数据的任何重传。</p>
+<p>一旦接收到流的所有数据，接收部分就进入<code>Data Recvd</code>状态。这可能是由于接收到导致转换为<code>Size Known</code>的相同STREAM帧而发生的。在此状态下，端点具有所有流数据。可以丢弃它为流接收的任何STREAM或STREAM_DATA_BLOCKED帧。</p>
+<p><code>Data Recvd</code>状态持续存在，直到流数据已传送到应用程序。一旦传送了流数据，流就进入<code>Data Read</code>状态，这是一种终结状态。</p>
+<p>在<code>Recv</code>或<code>Size Known</code>状态下接收到RESET_STREAM帧会使流进入<code>Reset Recvd</code>状态。这可能导致流数据传递到应用程序中断。</p>
+<p>当流处于<code>Data Recvd</code>状态接收到RESET_STREAM时，端点可能接收到所有流数据。类似地，在接收RESET_STREAM帧之后剩余的流数据可能到达（<code>Reset Recvd</code>状态）。一个实现可以自由选择管理这种情况。发送RESET_STREAM意味着端点无法保证流数据的传递。但是，如果收到RESET_STREAM，则不要求不传送流数据。实现可以中断流数据的传送，丢弃未使用的任何数据，并立即发出RESET_STREAM的接收信号。或者，如果流数据被完全接收并且缓冲以供应用程序读取，则可以抑制或保留RESET_STREAM信号。在后一种情况下，流的接收部分从<code>Reset Recvd</code>转换为<code>Data Recvd</code>。</p>
+<p>一旦应用程序已经被传送指示流被重置的信号，流的接收部分就转换到<code>Reset Recvd</code>状态，这是终结状态。</p>
+<h4 id="允许的帧类型">3.3 允许的帧类型</h4>
+<p>流的发送方只发送三种帧类型，这些类型会影响发送方或接收方的流状态：STREAM（第19.8节），STREAM_DATA_BLOCKED（第19.13节）和RESET_STREAM（第19.4节）。</p>
+<p>发送方不得从终结状态（<code>Data Recvd</code>或<code>Reset Recvd</code>）发送任何这些帧。发送者在发送RESET_STREAM后不得发送STREAM或STREAM_DATA_BLOCKED。也就是说，在终结状态和<code>Reset Sent</code>状态下。接收器可以在任何状态下接收这三个帧中的任何一个，因为可能延迟传送携带它们的分组。</p>
+<p>流的接收器发送MAX_STREAM_DATA（第19.10节）和STOP_SENDING帧（第19.5节）。</p>
+<p>接收器仅发送处于<code>Recv</code>状态的MAX_STREAM_DATA。接收器可以在没有收到RESET_STREAM帧的任何状态下发送STOP_SENDING;这是除<code>Reset Recvd</code>或<code>Reset Read</code>以外的状态。但是，在<code>Data Recvd</code>状态下发送STOP_SENDING帧几乎没有价值，因为已收到所有流数据。由于数据包的延迟传送，发送方可以在任何状态下接收这两个帧中的任何一个。</p>
+<h4 id="双向流状态">3.4 双向流状态</h4>
+<p>双向流由发送和接收部分组成。实现可以将双向流的状态表示为发送和接收流状态的组合。当发送或接收部分处于非终结状态时，最简单的模型将流呈现为<code>open</code>，而当发送和接收流都处于终结状态时，流呈现为<code>closed</code>。</p>
+<p>表2显示了与HTTP/2 中的流状态松散对应的双向流状态的复杂映射。这表明发送或接收部分流的多个状态被映射到相同的复合状态。请注意，这只是这种映射的一种可能性;此映射要求在转换到<code>closed</code>或<code>half-closed</code>状态之前确认数据。</p>
+<table>
+<thead>
+<tr class="header">
+<th>发送部分</th>
+<th>接收部分</th>
+<th>复合状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No Stream/Ready</td>
+<td>No Stream/Recv *1</td>
+<td>idle</td>
+</tr>
+<tr class="even">
+<td>Ready/Send/Data Sent</td>
+<td>Recv/Size Known</td>
+<td>open</td>
+</tr>
+<tr class="odd">
+<td>Ready/Send/Data Sent</td>
+<td>Data Recvd/Data Read</td>
+<td>half-closed (remote)</td>
+</tr>
+<tr class="even">
+<td>Ready/Send/Data Sent</td>
+<td>Reset Recvd/Reset Read</td>
+<td>half-closed (remote)</td>
+</tr>
+<tr class="odd">
+<td>Data Recvd</td>
+<td>Recv/Size Known</td>
+<td>half-closed (local)</td>
+</tr>
+<tr class="even">
+<td>Reset Sent/Reset Recvd</td>
+<td>Recv/Size Known</td>
+<td>half-closed (local)</td>
+</tr>
+<tr class="odd">
+<td>Reset Sent/Reset Recvd</td>
+<td>Data Recvd/Data Read</td>
+<td>closed</td>
+</tr>
+<tr class="even">
+<td>Reset Sent/Reset Recvd</td>
+<td>Reset Recvd/Reset Read</td>
+<td>closed</td>
+</tr>
+<tr class="odd">
+<td>Data Recvd</td>
+<td>Data Recvd/Data Read</td>
+<td>closed</td>
+</tr>
+<tr class="even">
+<td>Data Recvd</td>
+<td>Reset Recvd/Reset Read</td>
+<td>closed</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>备注 (*1)：如果尚未创建流，则该流被认为是<code>idle</code>，或者如果流的接收部分处于“Recv”状态而尚未接收到任何帧，则该流被认为是<code>idle</code>。</p>
+</blockquote>
+<h4 id="询问状态过渡">3.5 询问状态过渡</h4>
+<p>如果端点不再对它在流上接收的数据感兴趣，它可以发送一个STOP_SENDING帧来标识该流，以提示在相反方向关闭流。这通常表示接收应用程序不再读取它从流中接收的数据，但不保证将忽略传入的数据。</p>
+<p>发送STOP_SENDING后收到的STREAM帧仍计入连接和流量控制，即使这些帧在接收时将被丢弃。</p>
+<p>STOP_SENDING帧请求接收端点发送RESET_STREAM帧。如果流处于就绪或发送状态，则接收STOP_SENDING帧的端点必须发送RESET_STREAM帧。如果流处于数据发送状态并且任何未完成的数据被声明丢失，则端点应该发送RESET_STREAM帧代替重传。</p>
+<p>端点应该将错误代码从STOP_SENDING帧复制到它发送的RESET_STREAM帧，但是可以使用任何应用程序错误代码。发送STOP_SENDING帧的端点可以忽略它接收的任何RESET_STREAM帧中携带的错误代码。</p>
+<p>如果在已经处于<code>Data Sent</code>状态的流上接收到STOP_SENDING帧，则希望停止在该流上重传先前发送的STREAM帧的端点必须首先发送RESET_STREAM帧。</p>
+<p>STOP_SENDING应该仅针对未被对等方重置的流发送。 STOP_SENDING对于<code>Recv</code>或<code>Size Known</code>状态的流最有用。</p>
+<p>如果包含先前STOP_SENDING的数据包丢失，则端点应发送另一个STOP_SENDING帧。但是，一旦为流接收到所有流数据或RESET_STREAM帧（即，流处于<code>Recv</code>或<code>Size Known</code>以外的任何状态）发送STOP_SENDING帧是不必要的。</p>
+<p>希望终止双向流的两个方向的端点可以通过发送RESET_STREAM来终止一个方向，并且它可以通过发送STOP_SENDING帧来鼓励在相反方向上的快速终止。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Tiannian Du</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QUIC/" rel="tag"># QUIC</a>
+          
+            <a href="/tags/translate/" rel="tag"># translate</a>
+          
+            <a href="/tags/RFC/" rel="tag"># RFC</a>
+          
+            <a href="/tags/Protocol/" rel="tag"># Protocol</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/network/quic/draft-ietf-quic-invariants-latest/" rel="next" title="QUIC协议翻译 - draft-ietf-quic-invariants-latest">
+                <i class="fa fa-chevron-left"></i> QUIC协议翻译 - draft-ietf-quic-invariants-latest
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/13/blockchain/consensus/parsec-protocol/" rel="prev" title="parsec-protocol">
+                parsec-protocol <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tiannian Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/tiannian" title="GitHub &rarr; https://github.com/tiannian" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:dtiannian@aliyun.com" title="E-Mail &rarr; mailto:dtiannian@aliyun.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文档结构"><span class="nav-text">1.1 文档结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公约和定义"><span class="nav-text">1.2 公约和定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号约定"><span class="nav-text">1.3 符号约定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-text">2. 流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流类型与识别码"><span class="nav-text">2.1 流类型与识别码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收和发送数据"><span class="nav-text">2.2 接收和发送数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流优先级"><span class="nav-text">2.3 流优先级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流状态"><span class="nav-text">3. 流状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送流状态"><span class="nav-text">3.1 发送流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收流状态"><span class="nav-text">3.2 接收流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#允许的帧类型"><span class="nav-text">3.3 允许的帧类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向流状态"><span class="nav-text">3.4 双向流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#询问状态过渡"><span class="nav-text">3.5 询问状态过渡</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiannian Du</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'zEfVVP3bT5NRhSwrhAcIk1i0-gzGzoHsz',
+    appKey: 'gkh9e9g9vI4JToD9nAyg4rvO',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+    
+  
+  <script src="//cdn.jsdelivr.net/npm/pangu@3.3.0/dist/browser/pangu.min.js"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
