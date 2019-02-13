@@ -93,3 +93,7 @@ i18n:
 auto_dir_categorize:
   enable: true
   force: false
+  
+sitemap:
+  path: sitemap.xml
+  template: 

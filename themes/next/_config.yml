@@ -246,8 +246,8 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  display: post
-  #display: always
+  #display: post
+  display: always
   #display: hide
   #display: remove
 
@@ -325,11 +325,12 @@ codeblock:
 # If true, reward would be displayed in every article by default.
 # And you can show or hide one article specially through add page variable `reward: true/false`.
 reward:
-  enable: false
+  enable: true
   #comment: Donate comment here
   #wechatpay: /images/wechatpay.jpg
   #alipay: /images/alipay.jpg
-  #bitcoin: /images/bitcoin.jpg
+  #bitcoin: /images/ethereum.png
+  ethereum: /images/ethereum.png
 
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
@@ -615,7 +616,7 @@ google_site_verification: SGzeqKvjdGqch0ovbdlwxpgnCEucOoqmlXohHGweSFU
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster
-bing_site_verification: C1AE938064DC2CC5A4554988A9D74A04
+bing_site_verification: D2721FD7B373C5B70A888A8DE6FFECA4
 
 # Yandex Webmaster tools verification setting
 # See: https://webmaster.yandex.ru
