@@ -1,13 +1,15 @@
 ---
 title: 数字签名机制 - Schnorr Scheme
-date: 2018-12-27 15:25:46
 tags:
-- cryptography
-- schnorr scheme
-- digital signature
-- ED25519
-- EdDSA
+  - cryptography
+  - schnorr scheme
+  - digital signature
+  - ED25519
+  - EdDSA
 mathjax: true
+categories:
+  - cryptography
+date: 2018-12-27 15:25:46
 ---
 
 Schnorr机制是一种基于离散对数难题的知识证明机制，由德国数学家和密码学家Claus-Peter Schnorr在1990年提出。这种知识证明机制具有实现简单，验证速度较快等优点。最开始是为Smart Card这样的资源受限设备而设计。

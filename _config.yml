@@ -89,3 +89,7 @@ symbols_count_time:
 i18n:
   type: [page, post]
   generator: [index, archive, category, tag]
+  
+auto_dir_categorize:
+  enable: true
+  force: false

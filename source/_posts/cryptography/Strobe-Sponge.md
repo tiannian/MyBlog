@@ -1,12 +1,14 @@
 ---
 title: Strobe protocol framework分析 - Sponge Construction
-date: 2018-12-28 16:33:28
 tags:
-- cryptography
-- strobe protocol framework
-- keccak
-- SHA3
+  - cryptography
+  - strobe protocol framework
+  - keccak
+  - SHA3
 mathjax: true
+categories:
+  - cryptography
+date: 2018-12-28 16:33:28
 ---
 
 [Strobe](https://strobe.sourceforge.io/)是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。

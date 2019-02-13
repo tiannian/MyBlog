@@ -17,7 +17,8 @@ hexo.extend.helper.register('next_url', function(path, text, options) {
   var exturl = '';
   var tag = 'a';
   var attrs = { href: this.url_for(path) };
-
+  //var attrs = { href: path };
+      
   // If `exturl` enabled, set spanned links only on external links.
   if (theme.exturl && data.protocol && data.hostname !== siteHost) {
     tag = 'span';
@@ -52,6 +53,7 @@ hexo.extend.helper.register('next_url', function(path, text, options) {
     attrs.class = attrs.class.join(' ');
   }
 
+  
   // If it's external link, rewrite attributes.
   if (data.protocol && data.hostname !== siteHost) {
     attrs.external = null;

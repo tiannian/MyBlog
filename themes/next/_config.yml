@@ -140,7 +140,7 @@ menu:
   home: / || home
   #about: /about/ || user
   tags: /tags/ || tags
-  #categories: /categories/ || th
+  categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
@@ -149,7 +149,7 @@ menu:
 # Enable/Disable menu icons / item badges.
 menu_settings:
   icons: true
-  badges: false
+  badges: true
 
 
 # ---------------------------------------------------------------
@@ -197,7 +197,7 @@ social_icons:
 # Usage: `permalink || title`
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the title and aria-label name.
-#github_banner: https://github.com/tiannian || Follow me on GitHub
+github_banner: https://github.com/tiannian || Follow me on GitHub
 
 # Blog rolls
 links_icon: link
@@ -946,9 +946,9 @@ vendors:
   # Internal version: 4.6.2
   # See: http://fontawesome.io
   # Example:
-  # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css
+  fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css
   # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css
-  fontawesome:
+  #fontawesome:
 
   # Internal version: 2.4.1
   # See: https://www.algolia.com
@@ -999,9 +999,9 @@ vendors:
   # Internal version: 3.3.0
   # See: https://github.com/vinta/pangu.js
   # Example:
-  # pangu: //cdn.jsdelivr.net/npm/pangu@3.3.0/dist/browser/pangu.min.js
+  pangu: //cdn.jsdelivr.net/npm/pangu@3.3.0/dist/browser/pangu.min.js
   # pangu: //cdnjs.cloudflare.com/ajax/libs/pangu/3.3.0/pangu.min.js
-  pangu:
+  #pangu:
 
   # needMoreShare2
   # See: https://github.com/revir/need-more-share2
