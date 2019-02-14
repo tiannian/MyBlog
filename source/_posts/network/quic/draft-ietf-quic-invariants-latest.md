@@ -9,6 +9,10 @@ mathjax: true
 date: 2019-02-13 11:01:12
 ---
 
+本文是对QUIC协议IETF提案：[draft-ietf-quic-invariants-latest](https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html)的翻译。
+
+[draft-ietf-quic-invariants-latest](https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html)是IETF的QUIC提案中的第一部分，包含了基础的QUIC的数据包形式，定义了QUIC各个版本之间不应该发生变化的内容，明确了什么样的协议属于QUIC协议，并为不同版本的QUIC协议的兼容提供支持。
+
 ## Abstract
 
 本文档定义了QUIC传输协议的属性，随着协议的新版本的开发，这些属性随时间保持不变。
