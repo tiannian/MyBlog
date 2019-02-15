@@ -30,7 +30,7 @@
 
 
 
-  <meta name="google-site-verification" content="hYjLF41JAxT1rmciU1UJXBkBLHRDEEF5FNXbeI0rnso"/>
+  <meta name="google-site-verification" content="SGzeqKvjdGqch0ovbdlwxpgnCEucOoqmlXohHGweSFU"/>
 
 
 
@@ -40,7 +40,7 @@
 
 
 
-  <meta name="baidu-site-verification" content="8pQg53vLhg"/>
+  <meta name="baidu-site-verification" content="nygQg1xI3h"/>
 
 
 
@@ -251,7 +251,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags<span class="badge">16</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags<span class="badge">20</span></a>
 
   </li>
         
@@ -270,7 +270,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories<span class="badge">1</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories<span class="badge">4</span></a>
 
   </li>
         
@@ -289,7 +289,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives<span class="badge">6</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives<span class="badge">7</span></a>
 
   </li>
 
@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/13/blockchain/consensus/parsec-protocol/"/>
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/15/Instrumentalism/build-more-secure-pass-manager/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tiannian Du"/>
@@ -401,7 +401,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/02/13/blockchain/consensus/parsec-protocol/" class="post-title-link" itemprop="url">parsec-protocol</a>
+                <a href="/2019/02/15/Instrumentalism/build-more-secure-pass-manager/" class="post-title-link" itemprop="url">打造基于git的跨平台密码管理器</a>
               
             
           </h2>
@@ -426,7 +426,7 @@
                 
               
 
-              <time title="Created: 2019-02-13 17:40:57 / Modified: 21:11:40" itemprop="dateCreated datePublished" datetime="2019-02-13T17:40:57+08:00">2019-02-13</time>
+              <time title="Created: 2019-02-15 09:29:40 / Modified: 20:19:14" itemprop="dateCreated datePublished" datetime="2019-02-15T09:29:40+08:00">2019-02-15</time>
             
 
             
@@ -437,6 +437,24 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Instrumentalism/" itemprop="url" rel="index"><span itemprop="name">Instrumentalism</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -445,7 +463,7 @@
 
           
           
-            <span id="/2019/02/13/blockchain/consensus/parsec-protocol/" class="leancloud_visitors" data-flag-title="parsec-protocol">
+            <span id="/2019/02/15/Instrumentalism/build-more-secure-pass-manager/" class="leancloud_visitors" data-flag-title="打造基于git的跨平台密码管理器">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -470,7 +488,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">54</span>
+                <span title="Symbols count in article">2.7k</span>
               
 
               
@@ -484,7 +502,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -505,10 +523,251 @@
 
       
         
+          <p>现在互联网的发达程度，导致我们对需要管理并维护很多属于自己的账号信息。很多人为了自己方便起见，将自己的所有账户的密码设置为同一个。这样虽然方便，但一旦一个账户的密码泄露，所有的账号都会被一锅端。因此密码管理工具应运而生。</p>
+<p>当前最流行的密码管理工具应该就是1Password与LastPassword。然而作为商业软件，这种软件不仅仅需要付费使用，同时用户需要完全信任这种软件运营开发公司，由于其代码封闭，难以审计，很难说在你将自己的密码交给他之后会被做什么。</p>
+<p>因此，结合现有的开源方案，在这里提出一套可以媲美1Password等商业方案的密码管理解决方案。</p>
+<p>总体来说这套方案适用于如下需求：</p>
+<ul>
+<li>希望免费拥有一套免费密码管理方案；</li>
+<li>不信任1Password，LastPassword这种中心化密码管理方案；</li>
+<li>有一定的技术能力。</li>
+</ul>
+          <!--noindex-->
           
-            <p>PARSEC是由Maidsafe项目提出的一套共识机制。PARSEC采用了与Hashgraph类似的设计，</p>
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/15/Instrumentalism/build-more-secure-pass-manager/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" class="post-title-link" itemprop="url">QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-14 13:34:06" itemprop="dateCreated datePublished" datetime="2019-02-14T13:34:06+08:00">2019-02-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-15 21:35:28" itemprop="dateModified" datetime="2019-02-15T21:35:28+08:00">2019-02-15</time>
+              
+            
+          </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/quic/" itemprop="url" rel="index"><span itemprop="name">quic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" class="leancloud_visitors" data-flag-title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">6 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>翻译的第一部分。</p>
+<p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>是在<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。</p>
+<p>第一部分翻译内容包括第4，5节。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -608,16 +867,53 @@
                 
               
 
-              <time title="Created: 2019-02-13 11:09:28 / Modified: 21:11:40" itemprop="dateCreated datePublished" datetime="2019-02-13T11:09:28+08:00">2019-02-13</time>
+              <time title="Created: 2019-02-13 11:09:28" itemprop="dateCreated datePublished" datetime="2019-02-13T11:09:28+08:00">2019-02-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-15 20:19:14" itemprop="dateModified" datetime="2019-02-15T20:19:14+08:00">2019-02-15</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/quic/" itemprop="url" rel="index"><span itemprop="name">quic</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -652,7 +948,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">9.3k</span>
+                <span title="Symbols count in article">9.5k</span>
               
 
               
@@ -666,7 +962,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">8 mins.</span>
+                <span title="Reading time">9 mins.</span>
               
             </div>
           
@@ -687,7 +983,10 @@
 
       
         
-          <h2 id="abstract">Abstract</h2>
+          <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>翻译的第一部分。</p>
+<p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>是在<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。</p>
+<p>第一部分翻译内容包括第1，2，3节。</p>
+<h2 id="abstract">Abstract</h2>
 <p>本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。</p>
           <!--noindex-->
           
@@ -797,16 +1096,53 @@
                 
               
 
-              <time title="Created: 2019-02-13 11:01:12 / Modified: 21:11:40" itemprop="dateCreated datePublished" datetime="2019-02-13T11:01:12+08:00">2019-02-13</time>
+              <time title="Created: 2019-02-13 11:01:12" itemprop="dateCreated datePublished" datetime="2019-02-13T11:01:12+08:00">2019-02-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-15 20:19:14" itemprop="dateModified" datetime="2019-02-15T20:19:14+08:00">2019-02-15</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/quic/" itemprop="url" rel="index"><span itemprop="name">quic</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -841,7 +1177,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5k</span>
+                <span title="Symbols count in article">5.2k</span>
               
 
               
@@ -876,7 +1212,9 @@
 
       
         
-          <h2 id="abstract">Abstract</h2>
+          <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>的翻译。</p>
+<p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>是IETF的QUIC提案中的第一部分，包含了基础的QUIC的数据包形式，定义了QUIC各个版本之间不应该发生变化的内容，明确了什么样的协议属于QUIC协议，并为不同版本的QUIC协议的兼容提供支持。</p>
+<h2 id="abstract">Abstract</h2>
 <p>本文档定义了QUIC传输协议的属性，随着协议的新版本的开发，这些属性随时间保持不变。</p>
           <!--noindex-->
           
@@ -1003,7 +1341,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-13 21:11:40" itemprop="dateModified" datetime="2019-02-13T21:11:40+08:00">2019-02-13</time>
+                <time title="Modified: 2019-02-15 20:19:14" itemprop="dateModified" datetime="2019-02-15T20:19:14+08:00">2019-02-15</time>
               
             
           </span>
@@ -1095,7 +1433,7 @@
 
       
         
-          <p><a href="https://strobe.sourceforge.io/" target="_blank" rel="noopener">Strobe</a>是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。</p>
+          <p><a href="https://strobe.sourceforge.io/" target="_blank" rel="noopener">Strobe</a>是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了SHA-3中的块函数Keccak-f来对消息进行加密和验证。</p>
 <p>Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash function），消息认证码（Message authentication code）等机制；可以构建对称加密机制，数字签名机制（通过Schnorr Scheme），密钥交换机制（通过DH算法），以及TLS等类似的密码协议。</p>
 <p>在这里将会分析Strobe协议的组成以及其原理，以及如何在Strobe上构建密码协议。</p>
 <p>在分析Strobe协议之前，首先需要明确什么是海绵结构。</p>
@@ -1628,7 +1966,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1643,7 +1981,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1655,6 +1999,14 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
                     
                       
                     
@@ -2260,11 +2612,13 @@
   
     
       
+    
+      
+    
+      
+    
+      
         
-      
-    
-      
-    
       
     
       

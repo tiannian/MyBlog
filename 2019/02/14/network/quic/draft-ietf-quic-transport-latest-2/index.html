@@ -104,18 +104,18 @@
 
 
 
-  <meta name="description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第1，2，3节。 Abst">
+  <meta name="description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
 <meta name="keywords" content="QUIC,translate,RFC,Protocol">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
-<meta property="og:url" content="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/index.html">
+<meta property="og:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
+<meta property="og:url" content="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/index.html">
 <meta property="og:site_name" content="NianZhe">
-<meta property="og:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第1，2，3节。 Abst">
+<meta property="og:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-02-15T12:19:14.617Z">
+<meta property="og:updated_time" content="2019-02-15T13:35:28.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
-<meta name="twitter:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第1，2，3节。 Abst">
+<meta name="twitter:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
+<meta name="twitter:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第一部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/"/>
+  <link rel="canonical" href="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1. | NianZhe</title>
+  <title>QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2. | NianZhe</title>
   
 
 
@@ -385,7 +385,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/"/>
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tiannian Du"/>
@@ -402,7 +402,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.
+          <h2 class="post-title" itemprop="name headline">QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.
 
               
             
@@ -428,7 +428,7 @@
                 
               
 
-              <time title="Created: 2019-02-13 11:09:28" itemprop="dateCreated datePublished" datetime="2019-02-13T11:09:28+08:00">2019-02-13</time>
+              <time title="Created: 2019-02-14 13:34:06" itemprop="dateCreated datePublished" datetime="2019-02-14T13:34:06+08:00">2019-02-14</time>
             
 
             
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-15 20:19:14" itemprop="dateModified" datetime="2019-02-15T20:19:14+08:00">2019-02-15</time>
+                <time title="Modified: 2019-02-15 21:35:28" itemprop="dateModified" datetime="2019-02-15T21:35:28+08:00">2019-02-15</time>
               
             
           </span>
@@ -488,8 +488,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" itemprop="commentCount"></span>
+                <a href="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -497,7 +497,7 @@
 
           
           
-            <span id="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" class="leancloud_visitors" data-flag-title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
+            <span id="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" class="leancloud_visitors" data-flag-title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -522,7 +522,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">9.5k</span>
+                <span title="Symbols count in article">7k</span>
               
 
               
@@ -536,7 +536,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">9 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -558,233 +558,92 @@
       
         <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>翻译的第一部分。</p>
 <p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>是在<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。</p>
-<p>第一部分翻译内容包括第1，2，3节。</p>
-<h2 id="abstract">Abstract</h2>
-<p>本文档定义了QUIC传输协议的核心。随附文档描述了QUIC的丢失检测和拥塞控制以及使用TLS进行密钥协商。</p>
+<p>第一部分翻译内容包括第4，5节。</p>
 <a id="more"></a>
-<h3 id="简介">1. 简介</h3>
-<p>QUIC是一种多路复用且安全的通用传输协议，它具有如下特性：</p>
+<h3 id="流量控制">4. 流量控制</h3>
+<p>为了防止发送方的速度过快从而导致接收者难以接受数据，或防止恶意发送方在接收方处消耗大量内存，有必要限制接收方可以缓冲的数据量，为了使接收方能够限制对连接的内存，并对发送方实施调控，流被单独地和作为聚合流控制。QUIC接收方控制发送方可以在流上发送的最大数据量，如第4.1节和第4.2节所述。</p>
+<p>同样，为了限制连接中的并发性，QUIC端点控制其对等方可以启动的最大累积流数，如第4.5节所述。</p>
+<p>在CRYPTO帧中发送的数据的流控制方式与流数据的流控制方式不同。 QUIC依赖于加密协议实现来避免过度缓冲数据，请参阅[QUIC-TLS]。具体的实现中应该为QUIC提供一个接口来告诉QUIC它的缓冲限制，以便在限制不同层次上过多的缓冲。</p>
+<h4 id="数据流量控制">4.1 数据流量控制</h4>
+<p>QUIC采用类似于HTTP/2 [HTTP2]中基于信用分数（credit）的流控制方案，其中接收方通告它准备在给定流和整个连接上接收的字节数。这产生了QUIC中的两级数据流控制：</p>
 <ul>
-<li>流复用</li>
-<li>流和连接级控制</li>
-<li>低延迟连接建立</li>
-<li>连接迁移和弹性的NAT重绑定</li>
-<li>经过加密与认证的包头和负载</li>
+<li>流级流量控制，通过限制可在任何流上发送的数据量，防止单个流消耗连接的整个接收缓冲区。</li>
+<li>连接级流量控制，通过限制所有流上STREAM帧中发送的流数据的总字节数，防止发送者超过接收者的连接缓冲容量。</li>
 </ul>
-<p>QUIC使用UDP作为基础，以避免需要更改旧版客户端操作系统和中间件。 QUIC验证其所有包头并加密它交换的大多数数据，包括其信令，以避免引起对中间件的依赖。</p>
-<h4 id="文档结构">1.1 文档结构</h4>
-<p>本文档描述了核心QUIC协议，其结构如下。</p>
-<ul>
-<li>流是QUIC提供的基本服务抽象。
-<ul>
-<li><strong>第2节</strong> 描述了与流相关的核心概念，</li>
-<li><strong>第3节</strong> 提供了流的参考模型，</li>
-<li><strong>第4节</strong> 概述了流量控制的操作。</li>
-</ul></li>
-<li>连接是QUIC端点进行通信的主体。
-<ul>
-<li><strong>第5节</strong> 描述了流相关的核心概念，</li>
-<li><strong>第6节</strong> 描述了版本协商，</li>
-<li><strong>第7节</strong> 详细描述了建立连接的过程，</li>
-<li><strong>第8节</strong> 明确关键的拒绝服务缓解机制，</li>
-<li><strong>第9节</strong> 描述了端点如何迁移连接到新的网络路径上，</li>
-<li><strong>第10节</strong> 列出了结束已经打开的流的选项，</li>
-<li><strong>第11节</strong> 提供了对错误处理的通用指导</li>
-</ul></li>
-<li>数据包和数据帧是QUIC通讯的基础单元。
-<ul>
-<li><strong>第12节</strong> 描述了数据包和数据帧相关的概念，</li>
-<li><strong>第13节</strong> 定义了传输，重传，和确认的模型</li>
-<li><strong>第14节</strong> 明确了管理数据包大小的规则</li>
-</ul></li>
-<li>最后，QUIC协议元素的编码细节描述如下：
-<ul>
-<li><strong>第15节</strong> （版本）</li>
-<li><strong>第16节</strong> （整数编码）</li>
-<li><strong>第17节</strong> （数据包头）</li>
-<li><strong>第18节</strong> （传输参数）</li>
-<li><strong>第19节</strong> （数据帧）</li>
-<li><strong>第18节</strong> （错误）</li>
-</ul></li>
-</ul>
-<p>随附文档描述了QUIC的丢失检测和拥塞控制[QUIC-RECOVERY]，以及使用TLS进行密钥协商[QUIC-TLS]。</p>
-<p>本文档定义了QUIC版本1，它符合[QUIC-INVARIANTS]中的协议不变量。</p>
-<h4 id="公约和定义">1.2 公约和定义</h4>
+<p>接收方通过在握手期间发送传输参数来设置所有流的初始信用分数（credit）（第7.3节）。接收方向发送方发送MAX_STREAM_DATA（第19.10节）或MAX_DATA（第19.9节）帧，以通告增加的信用分数（credit）。</p>
+<p>接收方通过发送MAX_STREAM_DATA帧并适当地设置流ID字段来通告流的信用分数（credit）。MAX_STREAM_DATA帧指示流的最大绝对字节偏移量。接收方可以使用当前消耗的数据偏移量来确定被通告的流量控制偏移量。接收方可以在多个数据包中发送MAX_STREAM_DATA帧，即使其中一个数据包丢失了，也可以确保发送方在消耗完流控制信用分数（credit）之前收到更新。</p>
+<p>接收方通过发送MAX_DATA帧来通告连接信用分数（credit），该帧指示所有流的绝对字节偏移之和的最大值。接收方维护在所有流上接收的累积字节总和，用于检查流控制违规。接收方可以使用所有流上消耗的字节总数来确定要通告的最大数据限制。</p>
+<p>接收方可以通过在连接期间的任何时间发送MAX_STREAM_DATA或MAX_DATA帧来通告更大的偏移。但是接收方不能背弃通告的值。也就是说，一旦接收方通告了一个偏移量，它再通告对方一个较小的偏移量则不会产生效果。</p>
+<p>如果发送方违反被通告的连接或流数据量限制，接收方必须用FLOW_CONTROL_ERROR错误（第11节）关闭连接。</p>
+<p>发送方必须忽略任何不提升流量控制限制的MAX_STREAM_DATA或MAX_DATA帧。</p>
+<p>如果发送方用完了流量控制信用分数，它将无法发送新数据并被视为已被阻塞。发送方应该发送TREAM_DATA_BLOCKED或DATA_BLOCKED帧以指示它有要写入的数据但被流控制限制阻止。预计这些帧在常见情况下不经常发送，但它们被认为对调试和监视有用。</p>
+<p>发送方在达到数据限制时应该仅发送一次STREAM_DATA_BLOCKED或DATA_BLOCKED帧。除非确定原始帧丢失，否则发送方不应为相同的数据限制发送多个STREAM_DATA_BLOCKED或DATA_BLOCKED帧。在数据限制增加后，可以发送另一个STREAM_DATA_BLOCKED或DATA_BLOCKED帧。</p>
+<h4 id="流量控制信用分数的增加">4.2 流量控制信用分数的增加</h4>
+<p>本文档将MAX_STREAM_DATA或MAX_DATA帧中通告的时间间隔和字节数量限制留给实现，但提供了一些注意事项。这些帧有助于降低连接开销。因此，经常发送具有小变化的帧是不被鼓励的。同时，如果更新频率较低，则需要更大的增量限制以避免阻塞，因此接收方需要提供更大的缓存资源。因此，在确定通告限制的大小时，<em>在资源维护和开销之间存在折衷。（原文：Thus there is a trade-off between resource commitment and overhead when determining how large a limit is advertised.）</em></p>
+<p>接收方可以使用基于往返时间估计和接收应用消耗数据的速率的自动调整机制来调整通告增加的信用分数的频率和数量，类似于常见的TCP实现。作为优化，仅当存在要发送的其他帧或者对等体被阻止时发送与流控制相关的帧确保流控制不会导致额外的数据包被发送。</p>
+<p>如果发送方用完了流量控制信用分数，它将无法发送新数据并被视为已被阻塞。通常认为最好不要让发送方被阻塞。为避免阻塞发送方，并合理地考虑丢失的可能性，接收方应至少两次往返发送MAX_DATA或MAX_STREAM_DATA帧，然后才能阻塞发送方。</p>
+<p>在发送MAX_STREAM_DATA或MAX_DATA之前，接收方不能等待来自发送方的STREAM_DATA_BLOCKED或DATA_BLOCKED帧，因为这样做意味着发送方将至少在整个往返过程中被阻塞，如果对等方选择不发送STREAM_DATA_BLOCKED或DATA_BLOCKED，则被阻塞时间可能更长。</p>
+<h4 id="处理流取消">4.3 处理流取消</h4>
+<p>端点需要最终就消耗的流量控制信用分数达成一致，以避免超出流量控制限制或死锁。</p>
+<p>在接收到RESET_STREAM帧时，端点将取消对应流的状态计算并忽略到达该流的其他数据。如果RESET_STREAM帧与同一流的流数据重新排序，则接收者对该流上接收的字节数的估计可能低于发送者对发送的数量的估计。因此，两个端点可能无法就计入连接级流量控制的字节数达成一致。</p>
+<p>要解决此问题，RESET_STREAM帧（第19.4节）包括在流上发送的最终数据大小。在接收到RESET_STREAM帧时，接收方明确地知道在RESET_STREAM帧之前在该流上发送了多少字节，并且接收方必须使用流的最终大小来实施连接级流量控制。</p>
+<p>RESET_STREAM会终止流的一个方向。对于双向流，RESET_STREAM对相反方向的数据流没有影响。两个端点必须在未终止方向上继续保持流的流控制状态，直到该方向进入终结状态，或者直到其中一个端点发送CONNECTION_CLOSE。</p>
+<h4 id="流最终大小">4.4 流最终大小</h4>
+<p>最终大小是流消耗的流量控制信用分数。假设流上的每个连续字节都发送一次，最终大小是发送的字节数。更一般地说，这比流上发送的最大字节偏移大一。</p>
+<p>对于重置的流，最终大小在RESET_STREAM帧中显式携带。否则，最终大小是偏移加上标有FIN标志的STREAM帧的长度，或者在传入的单向流的情况下为0。</p>
+<p>当流的接收部分进入“Size Known”或“Reset Recvd”状态时（第3节），端点将知道流的最终大小。</p>
+<p>端点不得在最终大小或超出最终大小的流上发送数据。</p>
+<p>一旦知道了流的最终大小，它就不能再改变。如果收到RESET_STREAM或STREAM帧，指示流的最终大小发生了变化，则端点应该响应FINAL_SIZE_ERROR错误（参见第11节）。接收方应该将最终大小或超出最终大小的数据接收视为FINAL_SIZE_ERROR错误，即使在流关闭后也是如此。生成这些错误不是强制性的，只是因为要求端点生成这些错误也意味着端点需要维持关闭流的最终大小状态，这可能意味着需要维护一些状态。</p>
+<h4 id="控制并发">4.5 控制并发</h4>
+<p>端点限制对等方可以打开的传入流的总数。只有流ID小于<code>max_stream * 4 + initial_stream_id_for_type</code>的流可以被打开。初始限制在传输参数中设置（参见第18.1节），随后使用MAX_STREAMS帧（第19.11节）公布限制。单向和双向流适用于不同的限制。</p>
+<p>端点不得超过其对等端设置的限制。接收流ID超过其发送限制的STREAM帧的端点必须将其视为STREAM_LIMIT_ERROR类型的流错误（第11节）。</p>
+<p>接收方不能违背通告。也就是说，一旦接收器使用MAX_STREAMS帧通告流限制，则通告较小的限制无效。接收方必须忽略任何不增加流限制的MAX_STREAMS帧。</p>
+<p>与流级和连接级流量控制一样，本文档将通过MAX_STREAMS向对等体通告的时间间隔和流数量留给实现。实现可能会选择增加限制，以保持对等体可用的流数量大致一致。</p>
+<p>由于对等端限制而无法打开新流的端点应该发送STREAMS_BLOCKED帧（第19.14节）。该信号被认为对调试很有用。在通告增加信用分数之前，端点不得等待接收此信号，因为这样做意味着对等体将至少在整个往返中被阻塞，并且如果对等体选择不发送STREAMS_BLOCKED帧，则可能持续更长时间。</p>
+<h3 id="连接">5. 连接</h3>
+<p>QUIC的连接建立将版本协商与加密和传输握手相结合，以减少连接建立延迟，如第7节所述。一旦建立，连接可以迁移到任一端点的不同IP或端口，如第9节所述。最后，连接可以由任一端点终止，如第10节所述。</p>
+<h4 id="连接id">5.1 连接ID</h4>
+<p>每个连接都拥有一组连接标识符或连接ID，每个标识符都可以标识连接。连接ID由端点独立选择;每个端点选择其对等方使用的连接ID。</p>
+<p>连接ID的主要功能是确保较低协议层（UDP，IP）的寻址更改不会导致QUIC连接的数据包传递到错误的端点。每个端点使用特定于实现（并且可能是特定于部署）的方法来选择连接ID，该方法将允许具有该连接ID的分组被路由到端点并在接收时由端点识别。</p>
+<p><em>连接ID不得包含外部观察者可以使用的任何信息，防止将它们与同一连接的其他连接ID相关联。作为一个简单的例子，这意味着在同一连接上不得多次发出相同的连接ID。（原文：Connection IDs MUST NOT contain any information that can be used by an external observer to correlate them with other connection IDs for the same connection. As a trivial example, this means the same connection ID MUST NOT be issued more than once on the same connection.）</em></p>
+<p>具有长标头的数据包包括源连接ID和目标连接ID字段。这些字段用于设置新连接的连接ID，有关详细信息，请参阅第7.2节。</p>
+<p>具有短标头的数据包（第17.3节）仅包含目标连接ID，并省略显式长度。期望终结点知道目标连接ID字段的长度。使用基于连接ID路由的负载均衡器的端点可以在固定长度上与负载均衡器达成连接ID，或者就编码方案达成一致。固定部分可以编码显式长度，这允许整个连接ID的长度变化并且仍然可以由负载平衡器使用。</p>
+<p>版本协商（第17.2.1节）数据包回应客户端选择的连接ID，以确保正确路由到客户端并允许客户端验证数据包是否是初始数据包的响应。</p>
+<p>当路由不需要连接ID并且数据包的地址/端口元组足以识别连接时，可以使用零长度连接ID。对等体已选择零长度连接ID的端点必须继续在连接的生存期内使用零长度连接ID，并且绝不能从任何其他本地地址发送数据包。</p>
+<p>当端点请求非零长度连接ID时，需要确保对等体具有连接ID可供选择，从中可以选择发送到端点的数据包。这些连接ID由端点使用NEW_CONNECTION_ID帧提供（第19.15节）。</p>
+<h5 id="发出连接id">5.1.1 发出连接ID</h5>
+<p>每个连接ID都有一个关联的序列号，以帮助对消息进行数据去重。在握手期间，端点发出的初始连接ID在长数据包报头的源连接ID字段（第17.2节）中发送。初始连接ID的序列号为0.如果发送preferred_address传输参数，则提供的连接ID的序列号为1。</p>
+<p>使用NEW_CONNECTION_ID帧将附加连接ID传送给对等体（第19.15节）。每个新发布的连接ID上的序列号必须增加1.客户端在初始数据包中随机选择的连接ID和重试数据包提供的任何连接ID都不会分配序列号，除非服务端选择将它们保留为初始连接ID。</p>
+<p>当端点发出连接ID时，它必须接受在连接期间携带此连接ID的数据包，或者直到其对等体通过RETIRE_CONNECTION_ID帧使连接ID无效（第19.16节）。</p>
+<p>端点应该确保其对等体具有足够数量的可用和未使用的连接ID。虽然每个端点独立选择要发出的连接ID数量，但端点应该提供并维护至少八个连接ID。端点应该通过在对等体退出连接ID时或者当端点接收到具有先前未使用的连接ID的数据包时始终提供新的连接ID来执行此操作。启动迁移并要求非零长度连接ID的端点应该在迁移之前为其对等方提供新的连接ID，否则可能会使对等方关闭连接。</p>
+<h5 id="使用和退出连接id">5.1.2 使用和退出连接ID</h5>
+<p>端点可以在连接期间随时将其用于对等的连接ID更改为另一个可用的连接ID。端点使用连接ID的响应来迁移对等体，有关更多信息，请参见第9.5节。</p>
+<p>端点维护从其对等方接收的一组连接ID，其中任何一个都可以在发送数据包时使用。当端点希望从使用中删除连接ID时，它会向其对等端发送RETIRE_CONNECTION_ID帧。发送RETIRE_CONNECTION_ID帧表示将不再使用连接ID，并请求对等方使用NEW_CONNECTION_ID帧将其替换为新的连接ID。</p>
+<p>如第9.5节所述，每个连接ID必须用于仅从一个本地地址发送的数据包。迁移远离本地地址的端点应该在该地址不再计划使用该地址时退出该地址上使用的所有连接ID。</p>
+<h4 id="将数据包与连接匹配">5.2 将数据包与连接匹配</h4>
+<p>传入的数据包在被接收时分类。数据包可以与现有连接相关联，或者服务端会创建新连接。</p>
+<p>主机尝试将数据包与现有连接相关联。如果数据包具有与现有连接相对应的目标连接ID，则QUIC会相应地处理该数据包。请注意，可以将多个连接ID与连接关联见5.1节。</p>
+<p>如果目标连接ID为零长度且数据包与主机不需要连接ID的连接的地址/端口元组匹配，则QUIC将该数据包作为该连接的一部分进行处理。端点应该拒绝使用与现有连接相同的地址的连接尝试，或者使用非零长度的目标连接ID，以便可以将数据包正确地与连接匹配。</p>
+<p>端点可以为任何无法与现有连接匹配的数据包发送无状态重置（第10.4节）。无状态重置允许对等方更快地识别连接何时变得不可用。</p>
+<p>与现有连接匹配但端点无法去除数据包保护的数据包将被丢弃。</p>
+<p>可以丢弃无数据包保护的无效数据包，例如Initial，Retry或Version Negotiation。如果端点在发现错误之前提交状态更改，则必须生成连接错误。</p>
+<h5 id="客户端数据包处理">5.2.1 客户端数据包处理</h5>
+<p>发送到客户端的有效数据包始终包含与客户端选择的值匹配的目标连接ID。选择接收零长度连接ID的客户端可以使用地址/端口元组来标识连接。与现有连接不匹配的数据包将被丢弃。</p>
+<p>由于数据包重新排序或丢失，客户端可能会收到使用尚未计算的密钥加密的连接数据包。客户端可以丢弃这些数据包，或者可以缓冲它们以预期以后允许它计算密钥的数据包。</p>
+<p>如果客户端收到的数据包具有不受支持的版本，则必须丢弃该数据包。</p>
+<h5 id="服务端包处理">5.2.2 服务端包处理</h5>
+<p>如果服务器收到的数据包具有不受支持的版本，但数据包足够大，无法为服务器支持的任何版本启动新连接，则应该按照第6.1节中的说明发送版本协商数据包。服务器可以对这些数据包进行速率控制，以避免版本协商数据包的风暴。</p>
+<p>不受支持的版本的第一个数据包可以对任何特定于版本的字段使用不同的语义和编码。特别地，不同的数据包保护密钥可以用于不同的版本。不支持特定版本的服务器不太可能解密数据包的有效负载。服务端不应尝试解码或解密来自未知版本的数据包，而是发送版本协商数据包，前提是数据包足够长。</p>
+<p>服务器必须丢弃包含不受支持的版本的其他数据包。</p>
+<p>具有受支持版本或无版本字段的数据包与使用连接ID的连接匹配，或者使用（对于具有零长度连接ID的数据包）地址端口元组进行匹配。如果数据包与现有连接不匹配，则服务器继续执行下面的动作。</p>
+<p>如果数据包是完全符合规范的初始数据包，则服务器继续进行握手（第7节）。这会将服务端提交到客户端选择的版本。</p>
+<p>如果服务器当前没有接受任何新连接，它应该发送一个包含CONNECTION_CLOSE帧的初始数据包，错误代码为SERVER_BUSY。</p>
+<p>如果该数据包是0-RTT数据包，则服务端可以缓冲有限数量的这些分组以等待迟到的初始数据包。在服务端响应之前，客户端被禁止发送握手数据包，因此服务器应该忽略任何此类数据包。</p>
+<p>服务器必须在所有其他情况下丢弃传入的数据包。</p>
+<h4 id="quic连接的生命周期">5.3 QUIC连接的生命周期</h4>
 <blockquote>
-<p>略</p>
+<p>TBD</p>
 </blockquote>
-<h4 id="符号约定">1.3 符号约定</h4>
-<p>本文档中的数据包和框架图使用[RFC2360]第3.1节中描述的格式，并附带以下附加约定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[x]: 表示x是可选的</span><br><span class="line">x(A): 表示x有A bit长</span><br><span class="line">x(A/B/C): 表示x有A，B或C bit长</span><br><span class="line">x(i): 表示x使用第16节描述的可变长编码</span><br><span class="line">x(*): 表示x是可变长度的</span><br></pre></td></tr></table></figure>
-<h3 id="流">2. 流</h3>
-<p>QUIC中的流为应用程序提供轻量级，有序的字节流抽象。 从另一个角度来说流是QUIC作为弹性的消息抽象。</p>
-<p>可以通过发送数据来创建流。与流管理相关的过程（结束，取消和流控制）都旨在实现最小的开销。例如，单个STREAM帧可以打开流，携带数据或关闭流。流也可以是长期存在的，并且可以持续整个连接的持续时间。</p>
-<p>流可以由任一端点创建，可以同时发送与其他流不同的数据，并且可以被取消。 QUIC没有提供任何确保不同流之间字节排序的方法。</p>
-<p>QUIC允许任意数量的流同时运行，并且可以在任何流上发送任意数量的数据，受流控制约束（参见第4节）和流限制。</p>
-<h4 id="流类型与识别码">2.1 流类型与识别码</h4>
-<p>流可以是单向的或双向的。单向流在一个方向上传输数据：从流的发起者到对等方。双向流允许数据在两个方向上发送。</p>
-<p>通过数值在连接中标识流，称为流ID。流ID对于流是唯一的。 QUIC端点绝不能重用连接中的流ID。流ID被编码为可变长度整数（参见第16节）。</p>
-<p>流ID的最低有效位（0x1）标识流的发起者。客户端发起的流具有偶数编号的流ID（位设置为0），服务器发起的流具有奇数编号的流ID（位设置为1）。</p>
-<p>流ID的第二个最低有效位（0x2）区分双向流（位设置为0）和单向流（位设置为1）。</p>
-<p>因此，来自流ID的最低有效两位将流识别为四种类型之一，如表1中所总结的。</p>
-<table>
-<thead>
-<tr class="header">
-<th>掩码</th>
-<th>发起者</th>
-<th>流类型</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0x1</td>
-<td>客户端发起</td>
-<td>双向流</td>
-</tr>
-<tr class="even">
-<td>0x2</td>
-<td>服务端发起</td>
-<td>双向流</td>
-</tr>
-<tr class="odd">
-<td>0x3</td>
-<td>客户端发起</td>
-<td>单向流</td>
-</tr>
-<tr class="even">
-<td>0x4</td>
-<td>服务端发起</td>
-<td>单向流</td>
-</tr>
-</tbody>
-</table>
-<p>在每种类型中，使用数字增加的流ID创建流。不按顺序使用的流ID将会导致该类型的所有具有较低编号的流ID的流也被打开。</p>
-<p>客户端打开的第一个双向流的流ID为0。</p>
-<h4 id="接收和发送数据">2.2 接收和发送数据</h4>
-<p>STREAM帧封装了应用程序发送的数据。端点使用STREAM帧中的Stream ID和Offset字段按顺序放置数据。</p>
-<p>端点必须能够将流数据作为有序字节流传递给应用程序。提供有序的字节流要求端点缓冲任何无序接收的数据，直到宣称流量控制限制。</p>
-<p>QUIC没有特别规定无序传输流数据。但是，实现可以选择提供将数据无序传递到接收应用程序的能力。</p>
-<p>端点可以多次接收相同流偏移的流的数据。已经收到的数据可以被丢弃。如果多次发送，给定偏移量的数据不得改变;端点可以将流中相同偏移量的不同数据的接收视为PROTOCOL_VIOLATION类型的连接错误。</p>
-<p>Streams是一种有序的字节流抽象，QUIC中不存在其他可见的结构。当数据传输，数据包丢失后重传数据或者数据在接收器传送到应用程序时，预计不会保留STREAM帧边界。【TODO】</p>
-<p>端点不得在任何流上发送数据，而不确保它在同级设置的流量控制限制范围内。流量控制在第4节中详细描述。【TODO】</p>
-<h4 id="流优先级">2.3 流优先级</h4>
-<p>如果分配给流的资源被正确地优先化，则流复用可以对应用性能产生显着影响。</p>
-<p>QUIC不提供交换优先级信息的框架。相反，它依赖于从使用QUIC的应用程序接收优先级信息。</p>
-<p>QUIC实现应该提供应用程序可以指示流的相对优先级的方式。在决定将资源专用于哪些流时，实现应该使用应用程序提供的信息。</p>
-<h3 id="流状态">3. 流状态</h3>
-<p>本节按发送或接收组件描述流。描述了两个状态机：一个是使用流传输数据时端点的状态机（第3.1节），一个是使用流接收数据时端点的状态机（第3.2节）。</p>
-<p>单向流直接使用适用的状态机。双向流使用两个状态机。在大多数情况下，无论流是单向还是双向，这些状态机的使用都是相同的。打开流的条件对于双向流来说稍微复杂一些，因为发送侧或接收侧的打开导致流在两个方向上打开。</p>
-<p>端点必须按流ID的递增顺序打开相同类型的流。</p>
-<blockquote>
-<p>备注：这些状态机的信息很大。本文档使用流状态来描述何时以及如何发送不同类型的帧以及在接收到不同类型的帧时预期的反应的规则。虽然这些状态机旨在用于实现QUIC，但这些状态并非旨在约束实现。实现可以定义不同的状态机，只要其行为与实现这些状态的实现一致即可。</p>
-</blockquote>
-<h4 id="发送流状态">3.1 发送流状态</h4>
-<p>图1显示了将数据发送到对等方的流的一部分的状态。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">    o</span><br><span class="line">    | Create Stream (Sending)</span><br><span class="line">    | Peer Creates Bidirectional Stream</span><br><span class="line">    v</span><br><span class="line">+-------+</span><br><span class="line">| Ready | Send RESET_STREAM</span><br><span class="line">|       |-----------------------.</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Send STREAM /             |</span><br><span class="line">    |      STREAM_DATA_BLOCKED  |</span><br><span class="line">    |                           |</span><br><span class="line">    | Peer Creates              |</span><br><span class="line">    |      Bidirectional Stream |</span><br><span class="line">    v                           |</span><br><span class="line">+-------+                       |</span><br><span class="line">| Send  | Send RESET_STREAM     |</span><br><span class="line">|       |----------------------&gt;|</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Send STREAM + FIN         |</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  | Send RESET_STREAM | Reset |</span><br><span class="line">| Sent  |------------------&gt;| Sent  |</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv All ACKs             | Recv ACK</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  |                   | Reset |</span><br><span class="line">| Recvd |                   | Recvd |</span><br><span class="line">+-------+                   +-------+</span><br></pre></td></tr></table></figure>
-<p>端点启动的流的发送部分（客户端类型0和2，服务器类型1和3）由应用程序打开。 <code>Ready</code>状态表示新创建的流，该流能够接受来自应用程序的数据。可以在此状态下缓冲流数据以准备发送。</p>
-<p>发送第一个STREAM或STREAM_DATA_BLOCKED帧会导致流的发送部分进入<code>Send</code>状态。实现可以选择直到它发送第一帧并进入该状态时再将流ID分配给流，这可以允许更好的流优先级。</p>
-<p>由对等方发起的双向流的发送部分（服务器类型0，客户端类型1）进入<code>Ready</code>状态时，如果接收部分进入<code>Recv</code>状态则立即转换到<code>Send</code>状态（第3.2节）。</p>
-<p>在<code>Send</code>状态中，端点通过STEAM帧发送（在必要时重新发送 ）流数据。端点遵守其对等方设置的流量控制限制，并继续接受和处理MAX_STREAM_DATA帧。如果它被流量控制阻塞通过流或者连接发送数据，则<code>Send</code>状态的端点会生成STREAM_DATA_BLOCKED帧。</p>
-<p>在应用程序指示已发送所有流数据并且发送包含FIN位的STREAM帧之后，流的发送部分进入<code>Data Sent</code>状态。从该状态开始，端点仅在必要时重传流数据。端点不需要检查流控制限制，也不需要为此状态的流发送STREAM_DATA_BLOCKED帧。可以接收MAX_STREAM_DATA帧，直到对等体接收到最终流偏移。端点可以安全地忽略它从对等端接收到的处于此状态的流的任何MAX_STREAM_DATA帧。</p>
-<p>一旦成功确认了所有流数据，流的发送部分就进入<code>Data Recvd</code>状态，这是一种结束状态。</p>
-<p>从任何<code>Ready</code>，<code>Send</code>或<code>Data Sent</code>状态，应用程序可以发信号通知它希望放弃流数据的传输。或者，端点可能从其对等端接收STOP_SENDING帧。在任何一种情况下，端点都会发送RESET_STREAM帧，这会导致流进入<code>Reset Sent</code>状态。</p>
-<p>端点可以发送RESET_STREAM作为提及流的第一帧，这会导致该流的发送部分打开，然后立即转换到<code>Reset Sent</code>状态。</p>
-<p>一旦确认了包含RESET_STREAM的分组，则流的发送部分进入<code>Reset Recvd</code>状态，这是终结状态。</p>
-<h4 id="接收流状态">3.2 接收流状态</h4>
-<p>图2显示了从对等方接收数据的流部分的状态。接收流的一部分的状态仅镜像对等体流的发送部分的一些状态。流的接收部分不跟踪发送部分上无法观察到的状态，例如<code>Ready</code>状态。相反，流的接收部分跟踪向应用程序传送数据，其中一些数据不能被发送者观察到。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">    o</span><br><span class="line">    | Recv STREAM / STREAM_DATA_BLOCKED / RESET_STREAM</span><br><span class="line">    | Create Bidirectional Stream (Sending)</span><br><span class="line">    | Recv MAX_STREAM_DATA / STOP_SENDING (Bidirectional)</span><br><span class="line">    | Create Higher-Numbered Stream</span><br><span class="line">    v</span><br><span class="line">+-------+</span><br><span class="line">| Recv  | Recv RESET_STREAM</span><br><span class="line">|       |-----------------------.</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv STREAM + FIN         |</span><br><span class="line">    v                           |</span><br><span class="line">+-------+                       |</span><br><span class="line">| Size  | Recv RESET_STREAM     |</span><br><span class="line">| Known |----------------------&gt;|</span><br><span class="line">+-------+                       |</span><br><span class="line">    |                           |</span><br><span class="line">    | Recv All Data             |</span><br><span class="line">    v                           v</span><br><span class="line">+-------+ Recv RESET_STREAM +-------+</span><br><span class="line">| Data  |--- (optional) ---&gt;| Reset |</span><br><span class="line">| Recvd |  Recv All Data    | Recvd |</span><br><span class="line">+-------+&lt;-- (optional) ----+-------+</span><br><span class="line">    |                           |</span><br><span class="line">    | App Read All Data         | App Read RST</span><br><span class="line">    v                           v</span><br><span class="line">+-------+                   +-------+</span><br><span class="line">| Data  |                   | Reset |</span><br><span class="line">| Read  |                   | Read  |</span><br><span class="line">+-------+                   +-------+</span><br></pre></td></tr></table></figure>
-<p>当为该流接收到第一个STREAM，STREAM_DATA_BLOCKED或RESET_STREAM时，将创建由对等方发起的流的接收部分（客户端的类型1和3，或服务器的0和2）。对于由对等方发起的双向流，接收流的发送部分的MAX_STREAM_DATA或STOP_SENDING帧也会创建接收部分。流的接收部分的初始状态是<code>Recv</code>。</p>
-<p>当端点发起的双向流的发送部分（客户端类型0，服务器类型1）进入<code>Ready</code>状态时，流的接收部分进入<code>Recv</code>状态。</p>
-<p>当从该流的对等体收到MAX_STREAM_DATA或STOP_SENDING帧时，端点将打开双向流。为未打开的流接收MAX_STREAM_DATA帧表示远程对等体已打开流并提供流控制分数。为未打开的流接收STOP_SENDING帧表示远程对等体不再希望接收此流上的数据。如果数据包丢失或重新排序，则任何一个帧都可能在STREAM或STREAM_DATA_BLOCKED帧之前到达。</p>
-<p>在创建流之前，必须创建具有较低编号的流ID的所有相同类型的流。这可确保流的创建顺序在两个端点上保持一致。</p>
-<p>在“Recv”状态中，端点接收STREAM和STREAM_DATA_BLOCKED帧。传入的数据被缓冲，可以重新组合成正确的顺序以便传送到应用程序。当应用程序使用数据并且缓冲区空间可用时，端点发送MAX_STREAM_DATA帧以允许对等方发送更多数据。</p>
-<p>当接收到具有FIN位的STREAM帧时，流的最终大小是已知的（参见第4.4节）。然后，流的接收部分进入<code>Size Known</code>状态。在此状态下，端点不再需要发送MAX_STREAM_DATA帧，它只接收流数据的任何重传。</p>
-<p>一旦接收到流的所有数据，接收部分就进入<code>Data Recvd</code>状态。这可能是由于接收到导致转换为<code>Size Known</code>的相同STREAM帧而发生的。在此状态下，端点具有所有流数据。可以丢弃它为流接收的任何STREAM或STREAM_DATA_BLOCKED帧。</p>
-<p><code>Data Recvd</code>状态持续存在，直到流数据已传送到应用程序。一旦传送了流数据，流就进入<code>Data Read</code>状态，这是一种终结状态。</p>
-<p>在<code>Recv</code>或<code>Size Known</code>状态下接收到RESET_STREAM帧会使流进入<code>Reset Recvd</code>状态。这可能导致流数据传递到应用程序中断。</p>
-<p>当流处于<code>Data Recvd</code>状态接收到RESET_STREAM时，端点可能接收到所有流数据。类似地，在接收RESET_STREAM帧之后剩余的流数据可能到达（<code>Reset Recvd</code>状态）。一个实现可以自由选择管理这种情况。发送RESET_STREAM意味着端点无法保证流数据的传递。但是，如果收到RESET_STREAM，则不要求不传送流数据。实现可以中断流数据的传送，丢弃未使用的任何数据，并立即发出RESET_STREAM的接收信号。或者，如果流数据被完全接收并且缓冲以供应用程序读取，则可以抑制或保留RESET_STREAM信号。在后一种情况下，流的接收部分从<code>Reset Recvd</code>转换为<code>Data Recvd</code>。</p>
-<p>一旦应用程序已经被传送指示流被重置的信号，流的接收部分就转换到<code>Reset Recvd</code>状态，这是终结状态。</p>
-<h4 id="允许的帧类型">3.3 允许的帧类型</h4>
-<p>流的发送方只发送三种帧类型，这些类型会影响发送方或接收方的流状态：STREAM（第19.8节），STREAM_DATA_BLOCKED（第19.13节）和RESET_STREAM（第19.4节）。</p>
-<p>发送方不得从终结状态（<code>Data Recvd</code>或<code>Reset Recvd</code>）发送任何这些帧。发送者在发送RESET_STREAM后不得发送STREAM或STREAM_DATA_BLOCKED。也就是说，在终结状态和<code>Reset Sent</code>状态下。接收器可以在任何状态下接收这三个帧中的任何一个，因为可能延迟传送携带它们的分组。</p>
-<p>流的接收器发送MAX_STREAM_DATA（第19.10节）和STOP_SENDING帧（第19.5节）。</p>
-<p>接收器仅发送处于<code>Recv</code>状态的MAX_STREAM_DATA。接收器可以在没有收到RESET_STREAM帧的任何状态下发送STOP_SENDING;这是除<code>Reset Recvd</code>或<code>Reset Read</code>以外的状态。但是，在<code>Data Recvd</code>状态下发送STOP_SENDING帧几乎没有价值，因为已收到所有流数据。由于数据包的延迟传送，发送方可以在任何状态下接收这两个帧中的任何一个。</p>
-<h4 id="双向流状态">3.4 双向流状态</h4>
-<p>双向流由发送和接收部分组成。实现可以将双向流的状态表示为发送和接收流状态的组合。当发送或接收部分处于非终结状态时，最简单的模型将流呈现为<code>open</code>，而当发送和接收流都处于终结状态时，流呈现为<code>closed</code>。</p>
-<p>表2显示了与HTTP/2 中的流状态松散对应的双向流状态的复杂映射。这表明发送或接收部分流的多个状态被映射到相同的复合状态。请注意，这只是这种映射的一种可能性;此映射要求在转换到<code>closed</code>或<code>half-closed</code>状态之前确认数据。</p>
-<table>
-<thead>
-<tr class="header">
-<th>发送部分</th>
-<th>接收部分</th>
-<th>复合状态</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>No Stream/Ready</td>
-<td>No Stream/Recv *1</td>
-<td>idle</td>
-</tr>
-<tr class="even">
-<td>Ready/Send/Data Sent</td>
-<td>Recv/Size Known</td>
-<td>open</td>
-</tr>
-<tr class="odd">
-<td>Ready/Send/Data Sent</td>
-<td>Data Recvd/Data Read</td>
-<td>half-closed (remote)</td>
-</tr>
-<tr class="even">
-<td>Ready/Send/Data Sent</td>
-<td>Reset Recvd/Reset Read</td>
-<td>half-closed (remote)</td>
-</tr>
-<tr class="odd">
-<td>Data Recvd</td>
-<td>Recv/Size Known</td>
-<td>half-closed (local)</td>
-</tr>
-<tr class="even">
-<td>Reset Sent/Reset Recvd</td>
-<td>Recv/Size Known</td>
-<td>half-closed (local)</td>
-</tr>
-<tr class="odd">
-<td>Reset Sent/Reset Recvd</td>
-<td>Data Recvd/Data Read</td>
-<td>closed</td>
-</tr>
-<tr class="even">
-<td>Reset Sent/Reset Recvd</td>
-<td>Reset Recvd/Reset Read</td>
-<td>closed</td>
-</tr>
-<tr class="odd">
-<td>Data Recvd</td>
-<td>Data Recvd/Data Read</td>
-<td>closed</td>
-</tr>
-<tr class="even">
-<td>Data Recvd</td>
-<td>Reset Recvd/Reset Read</td>
-<td>closed</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>备注 (*1)：如果尚未创建流，则该流被认为是<code>idle</code>，或者如果流的接收部分处于“Recv”状态而尚未接收到任何帧，则该流被认为是<code>idle</code>。</p>
-</blockquote>
-<h4 id="询问状态过渡">3.5 询问状态过渡</h4>
-<p>如果端点不再对它在流上接收的数据感兴趣，它可以发送一个STOP_SENDING帧来标识该流，以提示在相反方向关闭流。这通常表示接收应用程序不再读取它从流中接收的数据，但不保证将忽略传入的数据。</p>
-<p>发送STOP_SENDING后收到的STREAM帧仍计入连接和流量控制，即使这些帧在接收时将被丢弃。</p>
-<p>STOP_SENDING帧请求接收端点发送RESET_STREAM帧。如果流处于就绪或发送状态，则接收STOP_SENDING帧的端点必须发送RESET_STREAM帧。如果流处于数据发送状态并且任何未完成的数据被声明丢失，则端点应该发送RESET_STREAM帧代替重传。</p>
-<p>端点应该将错误代码从STOP_SENDING帧复制到它发送的RESET_STREAM帧，但是可以使用任何应用程序错误代码。发送STOP_SENDING帧的端点可以忽略它接收的任何RESET_STREAM帧中携带的错误代码。</p>
-<p>如果在已经处于<code>Data Sent</code>状态的流上接收到STOP_SENDING帧，则希望停止在该流上重传先前发送的STREAM帧的端点必须首先发送RESET_STREAM帧。</p>
-<p>STOP_SENDING应该仅针对未被对等方重置的流发送。 STOP_SENDING对于<code>Recv</code>或<code>Size Known</code>状态的流最有用。</p>
-<p>如果包含先前STOP_SENDING的数据包丢失，则端点应发送另一个STOP_SENDING帧。但是，一旦为流接收到所有流数据或RESET_STREAM帧（即，流处于<code>Recv</code>或<code>Size Known</code>以外的任何状态）发送STOP_SENDING帧是不必要的。</p>
-<p>希望终止双向流的两个方向的端点可以通过发送RESET_STREAM来终止一个方向，并且它可以通过发送STOP_SENDING帧来鼓励在相反方向上的快速终止。</p>
 
       
     </div>
@@ -818,7 +677,7 @@
   <li class="post-copyright-link">
     <strong>Post link: </strong>
     
-    <a href="https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">https://tiannian.github.io/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/</a>
+    <a href="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
@@ -850,8 +709,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/network/quic/draft-ietf-quic-invariants-latest/" rel="next" title="QUIC协议翻译 - draft-ietf-quic-invariants-latest">
-                <i class="fa fa-chevron-left"></i> QUIC协议翻译 - draft-ietf-quic-invariants-latest
+              <a href="/2019/02/13/network/quic/draft-ietf-quic-transport-latest-1/" rel="next" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.">
+                <i class="fa fa-chevron-left"></i> QUIC协议翻译 - draft-ietf-quic-transport-latest Part 1.
               </a>
             
           </div>
@@ -860,8 +719,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/" rel="prev" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
-                QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2. <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/15/Instrumentalism/build-more-secure-pass-manager/" rel="prev" title="打造基于git的跨平台密码管理器">
+                打造基于git的跨平台密码管理器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1088,7 +947,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文档结构"><span class="nav-text">1.1 文档结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公约和定义"><span class="nav-text">1.2 公约和定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号约定"><span class="nav-text">1.3 符号约定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-text">2. 流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流类型与识别码"><span class="nav-text">2.1 流类型与识别码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收和发送数据"><span class="nav-text">2.2 接收和发送数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流优先级"><span class="nav-text">2.3 流优先级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流状态"><span class="nav-text">3. 流状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送流状态"><span class="nav-text">3.1 发送流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收流状态"><span class="nav-text">3.2 接收流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#允许的帧类型"><span class="nav-text">3.3 允许的帧类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向流状态"><span class="nav-text">3.4 双向流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#询问状态过渡"><span class="nav-text">3.5 询问状态过渡</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制"><span class="nav-text">4. 流量控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流量控制"><span class="nav-text">4.1 数据流量控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流量控制信用分数的增加"><span class="nav-text">4.2 流量控制信用分数的增加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理流取消"><span class="nav-text">4.3 处理流取消</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流最终大小"><span class="nav-text">4.4 流最终大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制并发"><span class="nav-text">4.5 控制并发</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接"><span class="nav-text">5. 连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连接id"><span class="nav-text">5.1 连接ID</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#发出连接id"><span class="nav-text">5.1.1 发出连接ID</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用和退出连接id"><span class="nav-text">5.1.2 使用和退出连接ID</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将数据包与连接匹配"><span class="nav-text">5.2 将数据包与连接匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端数据包处理"><span class="nav-text">5.2.1 客户端数据包处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端包处理"><span class="nav-text">5.2.2 服务端包处理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#quic连接的生命周期"><span class="nav-text">5.3 QUIC连接的生命周期</span></a></li></ol></li></ol></div>
             
 
           </div>
