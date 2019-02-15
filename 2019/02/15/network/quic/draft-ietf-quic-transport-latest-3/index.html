@@ -104,13 +104,18 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="NianZhe">
-<meta property="og:url" content="https://tiannian.github.io/tags/cryptography/index.html">
+  <meta name="description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第三部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第6，7，8节。">
+<meta name="keywords" content="QUIC,translate,RFC,Protocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）">
+<meta property="og:url" content="https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/index.html">
 <meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第三部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第6，7，8节。">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-02-15T13:42:39.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NianZhe">
+<meta name="twitter:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）">
+<meta name="twitter:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第三部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第6，7，8节。">
 
 
 
@@ -119,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://tiannian.github.io/tags/cryptography/"/>
+  <link rel="canonical" href="https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/"/>
 
 
 
@@ -129,7 +134,7 @@
   };
 </script>
 
-  <title>Tag: cryptography | NianZhe</title>
+  <title>QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成） | NianZhe</title>
   
 
 
@@ -177,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,7 +243,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -308,25 +313,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -383,114 +369,287 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>cryptography<small>Tag</small>
-        </h2>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/"/>
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe"/>
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2018/12/28/cryptography/Strobe-Sponge/" itemprop="url">
-            
-              <span itemprop="name">Strobe protocol framework分析 - Sponge Construction</span>
-            
-          </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-28T16:33:28+08:00"
-              content="2018-12-28">
-          12-28
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-15 21:41:11 / Modified: 21:42:39" itemprop="dateCreated datePublished" datetime="2019-02-15T21:41:11+08:00">2019-02-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/quic/" itemprop="url" rel="index"><span itemprop="name">quic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/" class="leancloud_visitors" data-flag-title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">197</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2018/12/28/cryptography/ed25519/" itemprop="url">
-            
-              <span itemprop="name">数字签名机制 - ED25519</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-28T10:35:12+08:00"
-              content="2018-12-28">
-          12-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2018/12/27/cryptography/Schnorr-Scheme/" itemprop="url">
-            
-              <span itemprop="name">数字签名机制 - Schnorr Scheme</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-27T15:25:46+08:00"
-              content="2018-12-27">
-          12-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>翻译的第三部分。</p>
+<p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>是在<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。</p>
+<p>第一部分翻译内容包括第6，7，8节。</p>
+<a id="more"></a>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Tiannian Du</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）">https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QUIC/" rel="tag"># QUIC</a>
+          
+            <a href="/tags/translate/" rel="tag"># translate</a>
+          
+            <a href="/tags/RFC/" rel="tag"># RFC</a>
+          
+            <a href="/tags/Protocol/" rel="tag"># Protocol</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/15/Instrumentalism/build-more-secure-pass-manager/" rel="next" title="打造基于git的跨平台密码管理器">
+                <i class="fa fa-chevron-left"></i> 打造基于git的跨平台密码管理器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -788,6 +947,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -827,6 +990,8 @@
 
 
 
+
+  
 
 
   
