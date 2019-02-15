@@ -11,7 +11,7 @@ categories:
 date: 2018-12-28 16:33:28
 ---
 
-[Strobe](https://strobe.sourceforge.io/)是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了一个块函数Keccak-f来对消息进行加密和验证。
+[Strobe](https://strobe.sourceforge.io/)是一个面向物联网设计的密码学协议框架，目标是为了使加密协议更容易开发，部署，分析，并适用于微型物联网设备。在Strobe的设计中，仅使用了SHA-3中的块函数Keccak-f来对消息进行加密和验证。
 
 Strobe利用了Keccak的海绵结构（Sponge Construction）来设计。这使得在Strobe的基础上，可以实现包括密码学哈希函数（Cryptographic hash function），消息认证码（Message authentication code）等机制；可以构建对称加密机制，数字签名机制（通过Schnorr Scheme），密钥交换机制（通过DH算法），以及TLS等类似的密码协议。
 
