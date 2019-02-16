@@ -12,7 +12,7 @@ tags:
 
 [draft-ietf-quic-transport-latest](https://quicwg.org/base-drafts/draft-ietf-quic-transport.html)是在[draft-ietf-quic-invariants-latest](https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html)基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。
 
-第一部分翻译内容包括第4，5节。
+第二部分翻译内容包括第4，5节。内容包括流量控制与连接等概念。
 
 <!-- more -->
 
