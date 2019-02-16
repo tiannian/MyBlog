@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tiannian.github.io/"/>
-  <updated>2019-02-16T11:24:47.618Z</updated>
+  <updated>2019-02-16T14:42:35.708Z</updated>
   <id>https://tiannian.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>有关QUIC的随笔 - 如何为IoT设备实施QUIC协议</title>
+    <link href="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/"/>
+    <id>https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/</id>
+    <published>2019-02-16T13:21:56.000Z</published>
+    <updated>2019-02-16T14:42:35.708Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC的问题，尤其是针对如何在IoT设备环境中实施QUIC协议进行了一些思考。</p><p>QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能好于基于TCP的HTTP/2。IETF甚至将HTTP/2 over QUIC称之为HTTP/3。但IETF给出的协议提案与Google的原始实现并不相同，同时也删除了一些功能。</p><p>但在阅读QUIC协议提案时，笔者也发现了一些问题。其中最大的问题时QUIC协议是为HTTP通讯而设计。当笔者考虑将QUIC协议实施与IoT环境下时，QUIC的实现过于庞大，同时对设备资源需求较高。但QUIC本身确实拥有一些适合于物联网环境的特性，本文就来讨论下如何在IoT设备上实施QUIC协议。</p><a id="more"></a><h2 id="quic协议与iot">QUIC协议与IoT</h2><h3 id="为什么quic协议是iot设备的良伴">为什么QUIC协议是IoT设备的良伴</h3><h3 id="为什么难以在iot设备上实施iot">为什么难以在IoT设备上实施IoT</h3><h2 id="如何修改quic协议">如何修改QUIC协议</h2><h3 id="quic的逻辑结构">QUIC的逻辑结构</h3><h3 id="寻找tls的替代品">寻找TLS的替代品</h3><h3 id="寻找cubic的替代品">寻找Cubic的替代品</h3><h3 id="阉割quic">阉割QUIC</h3><h3 id="可以选择的应用层协议">可以选择的应用层协议</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC的问题，尤其是针对如何在IoT设备环境中实施QUIC协议进行了一些思考。&lt;/p&gt;
+&lt;p&gt;QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能好于基于TCP的HTTP/2。IETF甚至将HTTP/2 over QUIC称之为HTTP/3。但IETF给出的协议提案与Google的原始实现并不相同，同时也删除了一些功能。&lt;/p&gt;
+&lt;p&gt;但在阅读QUIC协议提案时，笔者也发现了一些问题。其中最大的问题时QUIC协议是为HTTP通讯而设计。当笔者考虑将QUIC协议实施与IoT环境下时，QUIC的实现过于庞大，同时对设备资源需求较高。但QUIC本身确实拥有一些适合于物联网环境的特性，本文就来讨论下如何在IoT设备上实施QUIC协议。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="network" scheme="https://tiannian.github.io/categories/network/"/>
+    
+      <category term="quic" scheme="https://tiannian.github.io/categories/network/quic/"/>
+    
+    
+      <category term="QUIC" scheme="https://tiannian.github.io/tags/QUIC/"/>
+    
+      <category term="thinking" scheme="https://tiannian.github.io/tags/thinking/"/>
+    
+      <category term="Strobe" scheme="https://tiannian.github.io/tags/Strobe/"/>
+    
+      <category term="Noise" scheme="https://tiannian.github.io/tags/Noise/"/>
+    
+      <category term="Disco" scheme="https://tiannian.github.io/tags/Disco/"/>
+    
+  </entry>
   
   <entry>
     <title>QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.（未完成）</title>

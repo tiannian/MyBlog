@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/</loc>
+    
+    <lastmod>2019-02-16T14:42:35.708Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tiannian.github.io/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/</loc>
     
     <lastmod>2019-02-16T11:24:47.618Z</lastmod>
