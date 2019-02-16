@@ -104,18 +104,18 @@
 
 
 
-  <meta name="description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
+  <meta name="description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第二部分翻译内容包括第4，5节。内容包括流量控">
 <meta name="keywords" content="QUIC,translate,RFC,Protocol">
 <meta property="og:type" content="article">
 <meta property="og:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
 <meta property="og:url" content="https://tiannian.github.io/2019/02/14/network/quic/draft-ietf-quic-transport-latest-2/index.html">
 <meta property="og:site_name" content="NianZhe">
-<meta property="og:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
+<meta property="og:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第二部分翻译内容包括第4，5节。内容包括流量控">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-02-15T13:41:55.407Z">
+<meta property="og:updated_time" content="2019-02-16T14:51:41.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 2.">
-<meta name="twitter:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第一部分翻译内容包括第4，5节。">
+<meta name="twitter:description" content="本文是对QUIC协议IETF提案：draft-ietf-quic-transport-latest翻译的第二部分。 draft-ietf-quic-transport-latest是在draft-ietf-quic-invariants-latest基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。 第二部分翻译内容包括第4，5节。内容包括流量控">
 
 
 
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-15 21:41:55" itemprop="dateModified" datetime="2019-02-15T21:41:55+08:00">2019-02-15</time>
+                <time title="Modified: 2019-02-16 22:51:41" itemprop="dateModified" datetime="2019-02-16T22:51:41+08:00">2019-02-16</time>
               
             
           </span>
@@ -558,7 +558,7 @@
       
         <p>本文是对QUIC协议IETF提案：<a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>翻译的第二部分。</p>
 <p><a href="https://quicwg.org/base-drafts/draft-ietf-quic-transport.html" target="_blank" rel="noopener">draft-ietf-quic-transport-latest</a>是在<a href="https://quicwg.org/base-drafts/draft-ietf-quic-invariants.html" target="_blank" rel="noopener">draft-ietf-quic-invariants-latest</a>基础上定义的第一个版本的QUIC协议，这里描述了QUIC协议的核心，包括一些概念定义与具体的协议行为。</p>
-<p>第一部分翻译内容包括第4，5节。</p>
+<p>第二部分翻译内容包括第4，5节。内容包括流量控制与连接等概念。</p>
 <a id="more"></a>
 <h3 id="流量控制">4. 流量控制</h3>
 <p>为了防止发送方的速度过快从而导致接收者难以接受数据，或防止恶意发送方在接收方处消耗大量内存，有必要限制接收方可以缓冲的数据量，为了使接收方能够限制对连接的内存，并对发送方实施调控，流被单独地和作为聚合流控制。QUIC接收方控制发送方可以在流上发送的最大数据量，如第4.1节和第4.2节所述。</p>
