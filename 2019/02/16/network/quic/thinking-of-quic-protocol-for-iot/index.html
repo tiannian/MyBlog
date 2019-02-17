@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="NianZhe">
 <meta property="og:description" content="最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC的问题，尤其是针对如何在IoT设备环境中实施QUIC协议进行了一些思考。 QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTT">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-02-16T14:48:23.332Z">
+<meta property="og:updated_time" content="2019-02-17T05:40:23.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有关QUIC的随笔 - 如何为IoT设备实施QUIC协议">
 <meta name="twitter:description" content="最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC的问题，尤其是针对如何在IoT设备环境中实施QUIC协议进行了一些思考。 QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTT">
@@ -428,12 +428,24 @@
                 
               
 
-              <time title="Created: 2019-02-16 21:21:56 / Modified: 22:48:23" itemprop="dateCreated datePublished" datetime="2019-02-16T21:21:56+08:00">2019-02-16</time>
+              <time title="Created: 2019-02-16 21:21:56" itemprop="dateCreated datePublished" datetime="2019-02-16T21:21:56+08:00">2019-02-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-17 13:40:23" itemprop="dateModified" datetime="2019-02-17T13:40:23+08:00">2019-02-17</time>
               
             
           </span>
@@ -510,7 +522,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">570</span>
+                <span title="Symbols count in article">573</span>
               
 
               
@@ -550,7 +562,7 @@
 <a id="more"></a>
 <h2 id="quic协议与iot">QUIC协议与IoT</h2>
 <h3 id="为什么quic协议是iot设备的良伴">为什么QUIC协议是IoT设备的良伴</h3>
-<h3 id="为什么难以在iot设备上实施iot">为什么难以在IoT设备上实施IoT</h3>
+<h3 id="为什么难以在iot设备上实施quic协议">为什么难以在IoT设备上实施QUIC协议</h3>
 <h2 id="如何修改quic协议">如何修改QUIC协议</h2>
 <h3 id="quic的逻辑结构">QUIC的逻辑结构</h3>
 <h3 id="寻找tls的替代品">寻找TLS的替代品</h3>
@@ -858,7 +870,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quic协议与iot"><span class="nav-text">QUIC协议与IoT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么quic协议是iot设备的良伴"><span class="nav-text">为什么QUIC协议是IoT设备的良伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么难以在iot设备上实施iot"><span class="nav-text">为什么难以在IoT设备上实施IoT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何修改quic协议"><span class="nav-text">如何修改QUIC协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#quic的逻辑结构"><span class="nav-text">QUIC的逻辑结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找tls的替代品"><span class="nav-text">寻找TLS的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找cubic的替代品"><span class="nav-text">寻找Cubic的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阉割quic"><span class="nav-text">阉割QUIC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以选择的应用层协议"><span class="nav-text">可以选择的应用层协议</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quic协议与iot"><span class="nav-text">QUIC协议与IoT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么quic协议是iot设备的良伴"><span class="nav-text">为什么QUIC协议是IoT设备的良伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么难以在iot设备上实施quic协议"><span class="nav-text">为什么难以在IoT设备上实施QUIC协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何修改quic协议"><span class="nav-text">如何修改QUIC协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#quic的逻辑结构"><span class="nav-text">QUIC的逻辑结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找tls的替代品"><span class="nav-text">寻找TLS的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找cubic的替代品"><span class="nav-text">寻找Cubic的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阉割quic"><span class="nav-text">阉割QUIC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以选择的应用层协议"><span class="nav-text">可以选择的应用层协议</span></a></li></ol></li></ol></div>
             
 
           </div>
