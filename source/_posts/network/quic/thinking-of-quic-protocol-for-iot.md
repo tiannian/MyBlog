@@ -21,7 +21,7 @@ QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP�
 
 ### 为什么QUIC协议是IoT设备的良伴
 
-### 为什么难以在IoT设备上实施IoT
+### 为什么难以在IoT设备上实施QUIC协议
 
 ## 如何修改QUIC协议
 
