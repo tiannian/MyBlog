@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh,en,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="SGzeqKvjdGqch0ovbdlwxpgnCEucOoqmlXohHGweSFU"/>
+
+
+
+  <meta name="msvalidate.01" content="D2721FD7B373C5B70A888A8DE6FFECA4"/>
+
+
+
+
+
+  <meta name="baidu-site-verification" content="nygQg1xI3h"/>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="针对大文件的可检索性证明 摘要 在本文中，我们定义和探索可检索性（POR）。 POR方案使归档或备份服务（证明者）能够生成简明的证据，证明用户（验证者）可以检索目标文件F，即归档保留并可靠地传输足以供用户恢复的文件数据 \(F\) 完整。 POR可以被视为一种加密的知识证明（POK），但是专门设计用于处理大文件（或位串）\(F\)。 我们在这里探讨POR协议，其中通信成本，证明器的存储器访问次数和">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NianZhe">
+<meta property="og:url" content="https://tiannian.github.io/bak/paper/Paper-translation-for-PoRet.html">
+<meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="针对大文件的可检索性证明 摘要 在本文中，我们定义和探索可检索性（POR）。 POR方案使归档或备份服务（证明者）能够生成简明的证据，证明用户（验证者）可以检索目标文件F，即归档保留并可靠地传输足以供用户恢复的文件数据 \(F\) 完整。 POR可以被视为一种加密的知识证明（POK），但是专门设计用于处理大文件（或位串）\(F\)。 我们在这里探讨POR协议，其中通信成本，证明器的存储器访问次数和">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://tiannian.github.io/bak/paper/POR.png">
+<meta property="og:updated_time" content="2020-03-19T08:18:17.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NianZhe">
+<meta name="twitter:description" content="针对大文件的可检索性证明 摘要 在本文中，我们定义和探索可检索性（POR）。 POR方案使归档或备份服务（证明者）能够生成简明的证据，证明用户（验证者）可以检索目标文件F，即归档保留并可靠地传输足以供用户恢复的文件数据 \(F\) 完整。 POR可以被视为一种加密的知识证明（POK），但是专门设计用于处理大文件（或位串）\(F\)。 我们在这里探讨POR协议，其中通信成本，证明器的存储器访问次数和">
+<meta name="twitter:image" content="https://tiannian.github.io/bak/paper/POR.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NianZhe" type="application/atom+xml"/>
+
+
+
+
+  <link rel="canonical" href="https://tiannian.github.io/bak/paper/Paper-translation-for-PoRet.html"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | NianZhe</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NianZhe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Nian is made up by Jin and Xin</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags<span class="badge">22</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives<span class="badge">10</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/tiannian" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h2 class="post-title" itemprop="name headline">
+
+</h2>
+
+<div class="post-meta">
+  
+  
+
+
+  
+  
+  <ul class="breadcrumb">
+    
+      
+      
+        
+          
+            
+          
+          <li><a href="/bak/">BAK</a></li>
+        
+      
+    
+      
+      
+        
+          <li>PAPER</li>
+        
+      
+    
+      
+      
+        
+          
+            
+          
+          <li><a href="/bak/Paper-translation-for-PoRet.html/">PAPER-TRANSLATION-FOR-PORET.HTML</a></li>
+        
+      
+    
+  </ul>
+
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h1 id="针对大文件的可检索性证明">针对大文件的可检索性证明</h1>
+<h2 id="摘要">摘要</h2>
+<p>在本文中，我们定义和探索可检索性（POR）。 POR方案使归档或备份服务（证明者）能够生成简明的证据，证明用户（验证者）可以检索目标文件F，即归档保留并可靠地传输足以供用户恢复的文件数据 <span class="math inline">\(F\)</span> 完整。</p>
+<p>POR可以被视为一种加密的知识证明（POK），但是专门设计用于处理大文件（或位串）<span class="math inline">\(F\)</span>。 我们在这里探讨POR协议，其中通信成本，证明器的存储器访问次数和用户（验证器）的存储要求是小参数，基本上与F的长度无关。除了提出新的，实用的POR结构，我们 探索与之前探索过的相关方案相关的实施注意事项和优化。</p>
+<p>在POR中，与POK不同，证明者和验证者都不需要实际知道F. POR会产生新的和不寻常的安全定义，其定义是我们工作的另一个贡献。</p>
+<p>我们将POR视为半可信在线档案的重要工具。 现有的加密技术可帮助用户确保他们检索的文件的隐私性和完整性。 然而，对于用户来说，想要验证档案在检索之前不删除或修改文件也是很自然的.POR的目标是完成这些检查而无需用户自己下载文件。 POR还可以提供服务质量保证，即显示文件在特定时间范围内可检索</p>
+<h2 id="简介">1. 简介</h2>
+<p>一些趋势是向新形式的外包开放计算系统，即将计算服务委托给外部实体。 提高网络带宽和可靠性可减少用户对本地资源的依赖。 能源和劳动力成本以及计算系统复杂性正在阻碍硬件的集中管理。 用户越来越多地将数千英里之外的软件和数据用在他们自己不拥有的机器上。 网格计算，将不同的机器利用到统一的计算平台，多年来一直在科学计算中发挥作用。 同样，软件即服务（SaaS） - 松散地回归到终端/大型机计算架构 - 现在是主要公司的互联网技术战略的支柱。</p>
+<p>存储也不例外包趋势。 消费者和企业都有在线数据备份服务。 例如，亚马逊简单存储服务（S3）[1]提供了一个抽象的在线存储接口，允许程序员通过网络服务调用访问数据对象，费用以千兆字节为单位计算，数据传输量也是如此。 研究人员已经研究了替代服务模型，例如P2P数据存储[12]。</p>
+<p>随着用户和企业开始依赖各种数据存储库集，服务保证和底层硬件完整性的可变性，他们将需要新形式的数据完整性和可访问性保证。 简单复制为更高保证的数据归档提供了一条途径，但往往是不必要且不可持续的高成本。 （事实上，IDC最近的一份报告表明数据生成速度超过了存储可用性[14]。）像Rabin的数据分散方案[33]这样的协议更有效：它们在多个存储库之间共享数据，冗余最小，并确保数据的可用性 给定存储库的法定数量（k-out-of-n）的完整性的数据。 但是，这些协议并不能保证个别存储库的状态 - 这是一个限制协议可以为依赖方提供保证的缺点。</p>
+<p>在本文中，我们开发了一种新的加密构建块，称为可检索性证明（POR）。 POR使用户（验证者）能够确定存档（证明者）“拥有”文件或数据对象F。更确切地说，成功执行的POR向验证者保证证明者提供协议接口，验证者可以通过该协议接口检索F的完整性。 当然，即使在成功参与POR之后，证明者也可以拒绝释放F. 但是，POR可以最大限度地保证文件可检索性，从而禁止证明者行为的变化。</p>
+<p>正如我们在本文中所展示的那样，POR可以足够高效地提供文件可检索性的定期检查。 因此，作为一般工具，POR可以补充和加强各种归档架构中的任何一种，包括那些涉及数据分散的架构。</p>
+<h3 id="第一种方法">1.1 第一种方法</h3>
+<p>为了说明POR的基本思想和操作，值得考虑一个涉及键控散列函数 <span class="math inline">\(h_{\kappa}(F)\)</span> 的直接设计。 在该方案中，在存储文件 <span class="math inline">\(F\)</span> 之前，验证者计算并存储散列值 <span class="math inline">\(r=h_{\kappa}(F)\)</span> 以及秘密随机密钥 <span class="math inline">\(\kappa\)</span>。 为了检查证明者是否拥有 <span class="math inline">\(F\)</span>，验证者发送 <span class="math inline">\(\kappa\)</span> 并要求证明者计算并返回 <span class="math inline">\(r\)</span>。 如果他对第二前映像攻击有抵抗力，这个简单的协议提供了证明者知道 <span class="math inline">\(F\)</span> 的有力证据。通过在不同的密钥上存储多个散列值，验证者可以启动多个独立的检查。</p>
+<p>然而，这种密钥哈希方法具有重要的缺点：高资源成本。 密钥哈希协议要求验证者在其要执行的检查的数量中存储线性的多个哈希值。 该特征与使验证者能够减轻其存储负担的目的相冲突。 更重要的是，每个协议调用都要求证明者处理整个文件 <span class="math inline">\(F\)</span>。对于大文件 <span class="math inline">\(F\)</span>，即使像散列这样的计算轻量级操作也会非常麻烦。 此外，它要求证明者为每个证明读取整个文件 - 对于存档而言，其预期负载仅是每个文件偶尔读取的一个重要开销，每个文件都要经常测试。</p>
+<h3 id="我们的方法">1.2 我们的方法</h3>
+<p>我们引入了一种POR协议，其中验证器仅存储单个加密密钥（无论其寻求验证的可检索性的文件的大小和数量）以及每个文件的少量动态（几十位）。 （我们协议的一个简单变体允许存储没有动态状态，但产生较弱的安全性。）我们的方案要求证明者只访问（大）文件F的一小部分 POR的过程。 实际上，证明者“触及”的部分基本上与 <span class="math inline">\(F\)</span> 的长度无关，并且在典型的参数化中，将仅包括数百或数千个数据块。</p>
+<p>简而言之，我们的POR协议加密 <span class="math inline">\(F\)</span> 并随机嵌入一组称为哨兵的随机值检查块。 这里使用加密使得哨兵与其他文件块无法区分。 验证者通过指定一组哨兵的位置并要求证明者返回相关的哨兵值来挑战证明者。 如果证明者修改或删除了 <span class="math inline">\(F\)</span> 的大部分，那么很有可能它也会抑制一些哨兵。 因此，不太可能正确地对验证者做出响应。 为了防止 <span class="math inline">\(F\)</span> 的一小部分证明者作恶，我们还使用纠错码。 我们让 <span class="math inline">\(\tilde{F}\)</span> 引用与证明器一起存储的完整编码文件。</p>
+<p>我们提出的POR方案的缺点是在使用证明器存储之前所需的F的预处理/编码。 此步骤会产生一些计算开销 - 超出简单加密或散列的计算开销 - 以及证明器上的更大存储要求。 哨兵可以构成编码 <span class="math inline">\(F\)</span> 的一小部分（通常，例如，<span class="math inline">\(2％\)</span>）; 错误编码占用了大量的存储开销。 但是，对于大文件和实际协议参数化，相关的扩展因子<span class="math inline">\(|\tilde{F}|/|F|\)</span> 可以相当适中，例如15％。</p>
+<p><img src="POR.png"></p>
+<p>图1. POR系统的示意图。 编码算法将原始文件转换为编码文件 <span class="math inline">\(F\)</span> 以与证明者/档案一起存储。 密钥生成算法产生由验证者存储的密钥 <span class="math inline">\(\kappa\)</span> 并用于编码。 （在我们的主要方案中，密钥 <span class="math inline">\(\kappa\)</span> 在某些POR中独立于 <span class="math inline">\(F\)</span>。）验证者执行质询 - 响应协议，证明者检查验证者是否可以检索 <span class="math inline">\(F​\)</span>。</p>
+<p>为了更好地说明我们的POR协议，我们给出了两个简短的示例场景。</p>
+<p><em>示例1</em> 假设证明者在接收到编码文件 <span class="math inline">\(\tilde{F}\)</span> 时破坏三个随机选择的比特，<span class="math inline">\(\beta_1\)</span>，<span class="math inline">\(\beta_2\)</span>，<span class="math inline">\(\beta_3\)</span>。 这些位不太可能驻留在哨兵中，后者构成 <span class="math inline">\(\tilde{F}\)</span> 的一小部分。因此，验证者可能无法通过POR执行检测到损坏。 然而，由于 <span class="math inline">\(\tilde{F}\)</span> 中存在的纠错，验证者可以完整地恢复原始文件 <span class="math inline">\(F\)</span>。</p>
+<p><em>实例2</em> 相反，假设证明者破坏了 <span class="math inline">\(\tilde{F}\)</span> 中的许多块，例如文件的20％。 在这种情况下（没有非常繁重的错误编码），验证者不太可能恢复原始文件 <span class="math inline">\(F\)</span>。另一方面，验证者在POR中请求的每个哨兵将以1/5的概率检测到作恶。通过请求数百个哨兵，验证者可以以极大的概率检测到作恶。</p>
+<p>我们还考虑基于应用于（选定）文件块的消息认证码（MACs）的使用的方案。 原理与我们基于哨兵的方案大致相同。验证者对 <span class="math inline">\(\tilde{F}\)</span> 的元素进行抽查。错误编码确保如果 <span class="math inline">\(\tilde{F}\)</span> 的相当大部分没有损坏且可用，如通过抽查所证明的那样，那么 验证者可以高概率地恢复 <span class="math inline">\(F\)</span>。</p>
+<h3 id="相关工作">1.3 相关工作</h3>
+<p>数据完整性保护是加密的基本目标之一。 当应用于完整文件<span class="math inline">\(F\)</span>时，诸如数字签名和消息认证码（MACs）的原语允许拥有 <span class="math inline">\(F\)</span> 的实体验证它没有被篡改。</p>
+<p>更具挑战性的问题是在没有完整文件的明确知识的情况下验证F的完整性。 该问题首先由Blum等人广泛描述。 [8]，他探索了有效检查内存管理程序正确性的任务。 后续工作探讨了在一系列设置中进行动态内存检查的问题。 例如，在最近的工作中，Clarke等人。 [11]考虑具有少量状态的可信实体的情况，例如，可信计算模块，验证不可信，外部，动态变化的存储器的任意块的完整性。 他们的构造在这个记忆的内容上使用了Merkle哈希树，这种方法在文献的其他地方得到了丰富的应用。 在本文中，通过对POR的探索，我们专注于静态文件的特殊情况下的内存完整性检查。</p>
+<p>在网络存储环境中，加密文件系统（CFS）是用于系统级文件完整性保证的最常用工具（例如，参见[22]，用于最近的一项调查）。 在CFS中，一个实体（称为安全提供程序）管理不受信任的存储提供程序中的文件的加密和/或完整性保护。 安全提供程序可以与物理存储设备共存，也可以构建为虚拟文件系统。</p>
+<p>加密完整性保证允许实体在检索时检测对文件部分的未授权修改。 这种基本形式的完整性保证不能在检索之前或持续检测文件的修改或删除。 POR旨在提供更高程度的保证。</p>
+<p>POR允许检测篡改或删除远程文件 - 或将文件降级到具有不确定服务质量的存储。 但是，POR本身并不能防止丢失文件内容。 文件健壮性需要某种形式的存储冗余，并且在潜在的系统故障面前，需要跨多个系统分发文件。 大量文献，例如，[4，？，？]，探讨了涉及一系列展示拜占庭行为的服务器的安全模型中的强健存储问题。 目标是模拟可信的读/写存储器寄存器，如Lamport [24]的抽象。 在这种分布式模型中，模拟存储器寄存器的鲁棒性保证取决于法定数量的诚实服务器。</p>
+<p>虽然在拜占庭故障模型中运行的许多存储系统依赖于存储复制，但最近一个重要的研究涉及使用信息分散[33]和错误编码来降低实现鲁棒性保证所需的文件冗余程度，如[10]。 同样，我们在主要的POR结构中使用纠错来限制我们结构中存储档案中故障的影响。</p>
+<p>虽然POR的目的仅仅是检测文件损坏或丢失，而不是预防，但它可以与文件健壮性技术携手合作。 例如，用户可以选择将文件分散到多个服务提供商。 通过与这些提供商执行POR，用户可以检测服务质量的故障或失误。 因此，她可以在提供商之间重新分发她的文件，以增强其稳健性和可用性。 在对等环境中，服务质量可能不可靠，这种动态的资源重新分配可能尤为重要。</p>
+<p>正如我们在第2节中详细解释的那样，POR松散地说是在文件 <span class="math inline">\(F\)</span> 上的证明者和验证者之间进行的一种知识证明（POK）[5]。知识证明用于证明知识的证据。 一些短密码 <span class="math inline">\(y\)</span> ，它满足验证者指定的谓词。 通常，如在认证协议中，POK的基本设计属性是保持 <span class="math inline">\(y\)</span> 的保密性，即，不向验证者揭示关于 <span class="math inline">\(y\)</span> 的信息。 零知识的概念[17,18]以严格的形式意义捕捉了这一要求。 在POR中，设计挑战是不同的。 验证者可能已经学习了证明证明者所证明的值<span class="math inline">\(F\)</span>（因为验证者可能已经开始编码文件）。 由于 <span class="math inline">\(F\)</span> 可能非常大，所以主要的挑战是使用远小于 <span class="math inline">\(|F|\)</span> 的计算和通信成本来证明 <span class="math inline">\(F\)</span>（或可以从中恢复 <span class="math inline">\(F\)</span> 的信息）的知识。</p>
+<p>POR类似于文献中的其他非正统密码证明系统，例如计算能力证明[40]和工作证明（POWs）[21]。 存储器绑定POW [13]类似于使用POR进行服务质量验证，因为两种类型的证据都旨在根据证明者使用的存储延迟来表征存储器使用。 与POR精神紧密相关的是Golle，Jarecki和Mironov [19]的构建，他们调查了“存储执行承诺方案”。他们的方案使证明者能够证明它至少利用了存储空间 <span class="math inline">\(|F|\)</span>。 证明者并不直接证明它存储文件 <span class="math inline">\(F\)</span>，但证明它已经提交了足够的资源来执行此操作。</p>
+<p>在我们的主要方案中使用哨兵类似于许多其他系统的精神，这些系统依赖于在文件中嵌入秘密检查值，例如[20]中使用的“铃声”。 在那里，检查值是易于验证的计算任务，为正确处理伴随任务提供证据。 POR具有重要的操作差异，因为它们涉及“抽查”或审计，也就是说，证明者要求与文件隔离显示检查值。 我们在这里提出的POR协议的显着特征是它们通过将哨兵的密码隐藏与纠错相结合来放大对文件验证的特殊情况的抽查有效性的方式。</p>
+<p>我们所知道的最早的类似POR的协议是Lillibridge等人提出的协议。 [25]。他们的目标与我们的目标略有不同，因为他们希望确保在对等关系中分布在一组服务器上的文件的可用性。 为了确保文件完整，Lillibridge等人。 建议将错误编码应用于文件，并结合系统对等体进行的文件块的抽查。 他们的方法假定每个块上有单独的MACs，并且不直接解决单服务器情况的纠错，并且本文没有在验证过程中建立正式的定义或界限。</p>
+<p>更相关的理论结果是Naor和Rothblum（NR）[31]。它们表明存在子线性大小的文件可恢复性证明意味着存在单向函数。 NR提出了一种协议，其中将纠错码应用于文件 <span class="math inline">\(F\)</span>，然后对块进行MAC化。通过检查随机块的完整性，验证者可以确保整个文件可以恢复。 NR还提供简单，正式的安全定义，并证明其构造的安全限制。 NR安全定义类似于我们的正式POR定义，更为一般，但接近，而不是具体。因此，在他们提出的方案中，NR考虑将整个文件编码为纠错码中的单个码字。这种编码在实践中效率低，但产生了良好的理论性质。出于我们的目的，NR定义也省略了一些重要元素。它假定验证者可以直接访问编码文件 <span class="math inline">\(F\)</span>，实质上 <span class="math inline">\(F\)</span> 是固定的已发布字符串。因此，该定义不包括一致地报告 <span class="math inline">\(F\)</span> 中的文件块的服务器的情况：实质上，NR定义没有为 <span class="math inline">\(F\)</span> 定义提取者。此外，NR定义不捕获依赖于的证据的可能性。文件块的功能组合，而不是文件块的直接报告。（例如，我们在此考虑POR方案，其中将哨兵进行异或或散列以减少带宽。）</p>
+<p>最近的工作考虑了基于RSA的散列作为构建可恢复性证明的工具的应用。例如，Filho和Barreto [16]提出了一种方案，该方案间接使用Shamir [34]引入的基于同态RSA的哈希，简述如下。设 <span class="math inline">\(N\)</span> 是一个RSA模数。验证器存储文件 <span class="math inline">\(F\)</span> 的 <span class="math inline">\(k=F \bmod \varphi(N)\)</span>（适当地表示为整数）。为证明证明 <span class="math inline">\(F\)</span> 的可检索性，验证者发送随机元素 <span class="math inline">\(g \in \mathbb{Z}_N\)</span>。证明者返回 <span class="math inline">\(s=g^F\)</span> ，验证者检查 <span class="math inline">\(g^k \bmod N=s\)</span>。该协议的缺点是要求证明者对整个文件 <span class="math inline">\(F\)</span> 进行取幂。在与我们的论文同时进行的工作中，Ateniese等人。 [3]已经考虑将基于RSA的散列优雅应用于单个文件块。在他们的方案中，文件块检查值的同态组合支持文件的抽样检查并产生简短的证明。由于它依赖于文件的模幂运算，它们的方法是计算密集型的，并且还依赖于稍微轻微探索的适用于RSA设置的“指数知识”硬度假设[6]。它们的安全性定义取决于证明者向验证者提供正确的检查值，而不是直接表征文件可检索性的界限。</p>
+<p>Shah等人 [37]最近也提出了审计存储服务的方法。 在他们的方法中，第三方审计员通过完整（加密）文件上的质询 - 响应MAC来验证存储提供商是否拥有加密文件; 审计员还通过传统的知识证明协议验证存储提供商是否拥有以前提交的解密密钥。这一结果值得注意，因为它详细讨论了审计在存储系统中的作用，但同样没有提供正式的安全性模型。</p>
+<h3 id="我们的贡献">1.4 我们的贡献</h3>
+<p>我们认为我们的主要贡献是三点。 首先，我们提供POR的正式，具体的安全定义，我们认为这些定义在实际环境中具有普遍的兴趣和适用性。 其次，我们引入了一个基于标记的POR方案，该方案具有几个有趣的属性：理论意义上，标记中的数据以及由此产生的POR可以独立于存储的文件; 一个强有力的证明可以非常紧凑（在实践中大约32字节，有一些警告）; 该方案支持分层证明; 并且证明者和验证者的计算要求很小。 我们的哨兵计划强调了预先确定的验证者查询在POR中的好处 - 通过对此类查询总数的限制来抵消。 我们通过不同的权衡集来探索基本POR方案的变体。 作为最后的贡献，我们提供具体的分析，实用的设计指导，以及对POR建设的一般兴趣的优化。</p>
+<h3 id="组织">组织</h3>
+<p>在第2节中，我们介绍了POR的正式定义，并解释了该定义与标准的知识证明加密视图的区别。 我们在第3节介绍了我们的主要POR方案，简要讨论了它的安全性，并描述了几种变体。 我们在第4节中描述了我们的POR方案对安全存档和服务质量检查问题的适应和应用。我们在第5节中总结了对未来研究方向的简要讨论。 我们在附录A中证明了我们的主要定理。</p>
+<h2 id="定义">2. 定义</h2>
+<h3 id="标准的知识证明定义和por">2.1 标准的知识证明定义和POR</h3>
+<p>Bellare和Goldreich（BG）在[5]中建立了一个标准的，广泛引用的知识证明定义。 他们的定义集中在二元相关的 <span class="math inline">\(R \subseteq \{0,1\}^* \times \{0,1\}^*​\)</span>。</p>
+<p>语言 <span class="math inline">\(L_R = \{x:\exists y \mathit{s.t.} (x,y) \in R \}\)</span> 被定义为诱导有效关系的值 <span class="math inline">\(x\)</span> 的集合。 集合 <span class="math inline">\(R(x) = \{y:(x,y) \in R\}\)</span> 定义与给定 <span class="math inline">\(x\)</span> 相关联的证人。 通常，关注关系是多项式的，意味着比特长度 <span class="math inline">\(|y|\)</span> 任何见证人都是 <span class="math inline">\(|x|\)</span> 中的多项式。</p>
+<p>在BG视图中，知识证明是涉及证明者 <span class="math inline">\(P​\)</span> 和验证者 <span class="math inline">\(V​\)</span> 的两方协议。每个参与者是概率的交互功能。 BG定义假设 <span class="math inline">\(P​\)</span> 和 <span class="math inline">\(V​\)</span> 共享一个共同的字符串 <span class="math inline">\(x​\)</span>。副本包括给定交互中两个参与者的输出序列。</p>
+<p>BG定义依赖于一个额外的函数，一个提取器算法 <span class="math inline">\(K\)</span>，它也将 <span class="math inline">\(x\)</span> 作为输入并且具有对P的oracle访问。此外，<span class="math inline">\(V\)</span> 具有相关的误差函数<span class="math inline">\(\kappa (x)\)</span>，基本上是V接受由证明者生成的转录本的概率 <span class="math inline">\(P\)</span> 实际上并不知道（或使用其知识）<span class="math inline">\(x\)</span> 的见证人。 对于每个证明者 <span class="math inline">\(P\)</span>，令 <span class="math inline">\(p(x)\)</span> 输入<span class="math inline">\(x\)</span>，证明者 <span class="math inline">\(P\)</span> 诱导一组 <span class="math inline">\(V\)</span> 接受的转录本的概率。</p>
+<p>简而言之，在BG定义中，如果以下成立，则多时间验证器 <span class="math inline">\(V\)</span> 表征知识证明：存在多项式 <span class="math inline">\(f(x)\)</span>，使得对于所有足够大的 <span class="math inline">\(|x|\)</span>|，对于每个证明者 <span class="math inline">\(P\)</span>，提取器 <span class="math inline">\(K\)</span> 在由 <span class="math inline">\(f(x) / (p(x)-\kappa(x))\)</span> 界定的预期时间内输出证据 <span class="math inline">\(y \in R(x)\)</span>。 （BG定义也有一个非平凡的要求：必须存在一个合法的证明者 <span class="math inline">\(P\)</span>，即证明 <span class="math inline">\(V\)</span> 对任何 <span class="math inline">\(x \in L_R\)</span> 以概率为1接受证明者。）</p>
+<p>虽然非常广泛，但BG定义并不能自然地捕获POR协议的属性，这些协议具有以下几个独特的特征：</p>
+<ol type="1">
+<li>没有公共字符串 <span class="math inline">\(x\)</span>：在POR中，<span class="math inline">\(P\)</span> 和 <span class="math inline">\(V\)</span> 可能不共享任何公共字符串 <span class="math inline">\(x\)</span>：<span class="math inline">\(P\)</span> 可能仅仅知道某个文件 <span class="math inline">\(F\)</span>，而 <span class="math inline">\(V\)</span> 拥有用于验证其从 <span class="math inline">\(P\)</span> 检索 <span class="math inline">\(F\)</span> 的能力的密钥以及用于实际执行恢复。</li>
+<li>没有自然关系 <span class="math inline">\(R\)</span>：由于POR旨在证明文件 <span class="math inline">\(F\)</span> 需要从 <span class="math inline">\(P\)</span> 中恢复，因此似乎有必要将 <span class="math inline">\(F\)</span> 视为证人，即让 <span class="math inline">\(y = F\)</span>，因为 <span class="math inline">\(F\)</span> 正是我们想要的提取。 然而，在这种情况下，如果我们将 <span class="math inline">\(x\)</span> 视为 <span class="math inline">\(V\)</span> 可用的输入，我们发现没有适当的函数关系 <span class="math inline">\(R(x,y)\)</span> 来定义POR：实际上，<span class="math inline">\(x\)</span> 可能完全独立于 <span class="math inline">\(F\)</span>。</li>
+<li>拆分验证器/提取器知识：在我们的POR协议中，有用的是将验证能力与提取能力隔离开来。 因此，<span class="math inline">\(K\)</span> 可以采用 <span class="math inline">\(P\)</span> 或 <span class="math inline">\(V\)</span> 未知的秘密输入。</li>
+</ol>
+<p>正如我们所展示的，POR的这些特性产生了与普通POK相比不同的安全定义。</p>
+<h3 id="定义por系统">2.2 定义POR系统</h3>
+<p>一个POR系统 <span class="math inline">\(PORSYS​\)</span> 包括下面定义的六个功能。 函数 <span class="math inline">\(response​\)</span> 是证明者 <span class="math inline">\(P​\)</span> 执行的唯一函数。所有其他函数由验证者 <span class="math inline">\(V​\)</span> 执行。对于POR系统中的给定验证者调用，意图是验证者执行的函数集共享并隐式修改某些持久状态<span class="math inline">\(\alpha​\)</span>。 换句话说，<span class="math inline">\(\alpha​\)</span> 表示给定 <span class="math inline">\(V​\)</span> 的调用的状态；我们假设 <span class="math inline">\(\alpha​\)</span> 最初为空。 我们让 <span class="math inline">\(\pi​\)</span> 表示系统参数的完整集合。 我们对系统和安全性定义明确要求的唯一参数是安全性参数 <span class="math inline">\(j​\)</span>。 （实际上，正如我们在第3节中的主要方案中所见，<span class="math inline">\(\pi​\)</span> 也很方便包含指定文件长度，格式和编码的参数，以及挑战/响应大小。）在任何失败时，例如 ，无效的输入或处理失败，我们假设一个函数输出特殊符号 <span class="math inline">\(\perp​\)</span>。</p>
+<p><span class="math inline">\(kengen[\pi] \to \kappa\)</span> 函数 <span class="math inline">\(keygen\)</span> 生成秘密密钥 <span class="math inline">\(\kappa\)</span>。 （在我们的协议对公钥设置的概括中，<span class="math inline">\(\kappa\)</span> 可以是公钥/私钥对。另外，为了可证明和特权分离，我们可以选择将 <span class="math inline">\(\kappa\)</span> 分解为多个密钥。）</p>
+<p><span class="math inline">\(encode(F;\kappa,\alpha) \to (\tilde{F},\eta)\)</span> 函数 <span class="math inline">\(encode\)</span> 生成文件句柄 <span class="math inline">\(\eta\)</span>，该句柄 <span class="math inline">\(\eta\)</span> 对于给定的验证者调用是唯一的。 该函数还将 <span class="math inline">\(F\)</span> 转换为（放大的）文件 <span class="math inline">\(\tilde{F}_{\eta}\)</span> 并输出该对 <span class="math inline">\((\tilde{F}_{\eta},\eta)\)</span>。</p>
+<p>在这里适当的，对于给定的验证者 <span class="math inline">\(V\)</span> 的调用，我们让 <span class="math inline">\(F_\eta\)</span> 表示其编码的输入已经产生句柄 <span class="math inline">\(\eta\)</span> 的（唯一的）文件。 在没有很好地定义该值的情况下，即，在验证者 <span class="math inline">\(V\)</span> 没有调用编码已经产生句柄 <span class="math inline">\(\eta\)</span> 的情况下，我们让<span class="math inline">\(F_\eta = \perp\)</span>。</p>
+<p><span class="math inline">\(extract(\eta; \kappa,\alpha)\to F\)</span> 函数 <span class="math inline">\(extract\)</span> 是一个交互式函数，它管理来自证明者 <span class="math inline">\(P\)</span> 的文件的验证者 <span class="math inline">\(V\)</span> 的提取。具体地，<span class="math inline">\(extract\)</span> 提取确定 <span class="math inline">\(V\)</span> 发送给 <span class="math inline">\(P\)</span> 的一系列挑战，并处理得到的响应。 如果成功，该功能将恢复并输出<span class="math inline">\(F_\eta\)</span>。</p>
+<p><span class="math inline">\(challenge(\eta;\kappa,\alpha) \to c\)</span> 函数 <span class="math inline">\(challange\)</span> 是采用秘密密钥 <span class="math inline">\(\kappa\)</span> 和句柄和伴随状态作为输入，以及系统参数。 该函数输出文件 <span class="math inline">\(\eta\)</span> 的挑战值。</p>
+<p><span class="math inline">\(response(c,\eta) \to r\)</span> 证明者 <span class="math inline">\(P\)</span> 使用函数响应来生成对挑战 <span class="math inline">\(c\)</span> 的响应。 请注意，在POR系统中，挑战 <span class="math inline">\(c\)</span> 可能来源于挑战或提取。</p>
+<p><span class="math inline">\(verify((r,\eta);\kappa,\alpha) \to b \in \{0,1\}\)</span> 函数验证确定 <span class="math inline">\(r\)</span> 是否表示对质询 <span class="math inline">\(c\)</span> 的有效响应。 挑战 <span class="math inline">\(c\)</span> 并不构成我们模型中的明确输入; 它由 <span class="math inline">\(\eta\)</span> 和验证者状态 <span class="math inline">\(\alpha\)</span> 包含。 如果验证成功，该函数输出'<span class="math inline">\(1\)</span>'，否则输出'<span class="math inline">\(0\)</span>'。</p>
+<h3 id="por安全定义">2.3 POR安全定义</h3>
+<p>我们根据一个实验来定义POR协议的安全性，其中对手 <span class="math inline">\(\mathcal{A}\)</span> 扮演证明者 <span class="math inline">\(P\)</span> 的角色。让我们首先给出一些初步的解释和直觉。</p>
+<p>定义概述对手 <span class="math inline">\(\mathcal{A}​\)</span> 由两部分组成，<span class="math inline">\(\mathcal{A}​\)</span>("setup")和<span class="math inline">\(\mathcal{A}​\)</span>("response")。 组件<span class="math inline">\(\mathcal{A}​\)</span>("setup")可以与验证器任意交互; 它可能会创建文件并导致验证者编码并提取它们; 它也可能从验证者那里获得挑战。 <span class="math inline">\(\mathcal{A}​\)</span>("response")的目的是在特殊文件<span class="math inline">\(F_{\eta^*}​\)</span>上创建存档。 该存档体现为第二个组件<span class="math inline">\(\mathcal{A}​\)</span>("setup")。 用<span class="math inline">\(\mathcal{A}​\)</span>("response")验证者执行POR并尝试检索 <span class="math inline">\(F_{\eta^*}​\)</span>。</p>
+<p>在我们的模型中，存储者 - 无论是诚实还是对抗 - 只执行一项功能。 它接收挑战 <span class="math inline">\(c\)</span> 并返回响应 <span class="math inline">\(r\)</span>。 诚实的归档文件返回文件 <span class="math inline">\(F_{\eta}\)</span> 的正确响应; 对手可能会也可能不会这样做。 该挑战/响应机制既可以作为证明POR中可检索性的基础，也可以作为函数提取恢复文件 <span class="math inline">\(F_{\eta}\)</span> 的接口。 在正常操作过程中，提取物将一系列挑战 <span class="math inline">\(c1, c2, c3\)</span> ......提交给档案，从相应的响应中重建 <span class="math inline">\(F_\eta\)</span> ，然后解码 <span class="math inline">\(F_\eta\)</span> 以获得原始文件 <span class="math inline">\(F_\eta\)</span>。</p>
+<p>在我们的安全定义中，我们将 <span class="math inline">\(\mathcal{A}\)</span>("response") 视为无状态实体。 （也就是说，它在响应挑战后状态不会改变，它没有“记忆”。）在任何给定的挑战 <span class="math inline">\(c\)</span> 上， <span class="math inline">\(\mathcal{A}\)</span>("response") 以某种可能性返回正确的响应; 否则，它会根据一些固定的概率分布返回错误的响应。 这些概率可能与挑战不同，但由于我们假设 <span class="math inline">\(\mathcal{A}\)</span>("response") 是无状态的，因此对于任何给定的挑战值，概率都是主要固定的。 换句话说， <span class="math inline">\(\mathcal{A}\)</span>("response") 可被视为超过挑战值 <span class="math inline">\(c\)</span> 的概率分布集。</p>
+<p>最初看起来A中的无状态假设 <span class="math inline">\(\mathcal{A}\)</span>("response") 过于强烈。 毕竟，在实践中，由于提取器必须发送比验证者更多的查询，因此有状态的对手可以区分这两者。 因此，通过假设 <span class="math inline">\(\mathcal{A}\)</span>("response") 是无状态的，我们的定义折现了恶意存档的（非常真实的）可能性，该恶意存档正确地响应验证者，但是不能响应提取器。 这样一个有状态的对手可以正确地响应挑战，但仍无法释放文件。</p>
+<p>但是，我们认为，我们的POR定义是现实操作环境中最强大的定义，并且它捕获了一系列有用的实用保证。 实际上没有有意义的方法来定义POR而不对对抗行为采取某种形式的限制。 正如我们已经解释过的，除非POR协议与提取无法区分，否则拜占庭对手在检测到提取尝试时总是会失败。 因此，最合适的安全性定义似乎是表征验证者从“快照”提取文件 <span class="math inline">\(F_\eta\)</span> 的能力，即来自完整（并且假设，不变）的状态 <span class="math inline">\(\mathcal{A}\)</span>("response") 的能力。 验证者有效地能够在执行期间根据需要“倒回”对手，以保持对手缺乏状态。 在实际环境中，此功能对应于访问内部服务器的内存转储或备份磁带。</p>
+<p>对于某些应用程序，我们对 <span class="math inline">\(\mathcal{A}\)</span>("response") 的建模实际上可能过于强大。 例如，如果POR的目的是确保存档中的可用性或服务质量，那么可能没有理由假设文件的对抗性损坏的可能性。 攻击者唯一真正的经济激励可能是最小化其存储成本，即删除文件块或将其降级为缓慢存储。 我们的POR安全定义可能会被修改以满足这个较弱的要求，我们会在本文后面考虑这样一个“擦除”对手。 然而，我们在此关注的是创建一个具有广泛现实世界适用性的基本定义。</p>
+<p>简而言之，我们的安全定义涉及一个游戏，其中对手 <span class="math inline">\(A\)</span> 试图“欺骗”验证者 <span class="math inline">\(V\)</span>。<span class="math inline">\(A\)</span> 试图创建一个环境，其中 <span class="math inline">\(V\)</span> 认为它能够以极大的概率检索给定文件<span class="math inline">\(F_\eta^*\)</span> 但是不能。 因此，<span class="math inline">\(\mathcal{A}\)</span>("setup")的目的是诱导验证者状态 <span class="math inline">\(\alpha\)</span> 并在 <span class="math inline">\(A\)</span> 中创建状态<span class="math inline">\((\delta,\eta^*)\)</span> <span class="math inline">\(\mathcal{A}\)</span>("response") ），使得：（1）<span class="math inline">\(V\)</span> 接受来自 <span class="math inline">\(\mathcal{A}\)</span>("response") 的响应对高的挑战 概率和（2）<span class="math inline">\(V\)</span> 以不可忽略的概率失败，从而在调用提取物时从 <span class="math inline">\(\mathcal{A}\)</span>("response") 中检索 <span class="math inline">\(F_\eta^*\)</span> 。</p>
+<blockquote>
+<p>Something need todo.</p>
+</blockquote>
+<h2 id="基于标记的por方案">3. 基于标记的POR方案</h2>
+<p>我们感兴趣的主要POR方案是引言中描述的基于标记的方案。 在给出详细信息之前，我们概述了一般协议结构。</p>
+<p>设置阶段：验证者 <span class="math inline">\(V\)</span> 加密文件 <span class="math inline">\(F\)</span>。然后将标记嵌入 <span class="math inline">\(F\)</span> 中的随机位置，标记是随机构造的检查值。 设 <span class="math inline">\(\tilde{F}\)</span> 用其嵌入的标记表示文件 <span class="math inline">\(F\)</span>。</p>
+<p>验证阶段：为确保存档保留 <span class="math inline">\(F\)</span> ，<span class="math inline">\(V\)</span> 指定 <span class="math inline">\(\tilde{F}\)</span> 中某些标记的位置，并要求存档返回相应的标记值。</p>
+<p>安全性：因为 <span class="math inline">\(F\)</span> 是加密的并且标记是随机分布的，所以存档不能可行地提前区分标记和原始文件 <span class="math inline">\(F\)</span> 的部分。因此，我们实现以下属性：如果存档删除或修改实质的 <span class="math inline">\(\epsilon\)</span>-分数 <span class="math inline">\(\tilde{F}\)</span>，它很可能也会大致改变标记的 <span class="math inline">\(\epsilon\)</span>-分数。 如果验证者 <span class="math inline">\(V\)</span> 请求并验证足够的标记，则 <span class="math inline">\(V\)</span> 可以检测档案是否已经擦除或改变了 <span class="math inline">\(\tilde{F}\)</span> 的大部分（然而，个别标记只能一次性验证）。</p>
+<p>在实践中，验证者希望确保不对文件 <span class="math inline">\(F\)</span> 的任何部分进行更改。即使单个丢失或翻转的位也可能表示语义上严重的损坏。 因此，单独检测 <span class="math inline">\(\epsilon\)</span>-分数修饰是不够的。 然而，通过简单的改进，我们可以确保即使存档确实改变了 <span class="math inline">\(\epsilon\)</span>-分数（对于任意大的 <span class="math inline">\(\epsilon\)</span> ），验证者仍然可以恢复其文件。很简单，在文件 <span class="math inline">\(F\)</span> 中种植标记之前，用户使用一个纠错码，它容忍 <span class="math inline">\(F\)</span> 中 <span class="math inline">\(\epsilon\)</span> 部分数据块的损坏（或擦除）。验证者还置换文件以确保（加密）代码的符号是随机分散的，因此他们的位置不为存储者所知。</p>
+<p>我们强调我们的POR方案的一个强烈违反直觉的方面：构成POR证明内容的标记是独立于他们正在证明的可检索性的比特串而生成的。 相反，如上所述，在普通证据证明（POK）中，证明的内容取决于作为证据主体的值，即证人。</p>
+<h3 id="标记机制详情">标记机制详情</h3>
+<p>我们现在描述我们的基于标记的POR，我们称之为<span class="math inline">\(\mathrm{Sentinel-PORSYS}[\pi]\)</span>。</p>
+<p>我们在我们的方案中使用 <span class="math inline">\(l\)</span>-bit块作为基本存储单元。 我们使用一个纠错码，它在 <span class="math inline">\(l\)</span>-bit符号上运行，一个在 <span class="math inline">\(l\)</span>-bit块上运行的密码，以及长度为 <span class="math inline">\(l\)</span>-bit的标记。 虽然我们的方案不需要，但这种统一参数化的选择具有概念简单性的优点。 它在实践中也是可行的，正如我们在3.4节中的示例参数选择中所示。 为简单起见，我们还假设使用具有偶数值 <span class="math inline">\(d\)</span> 的有效 <span class="math inline">\((n,d,k)\)</span>-误差校正码，因此能够校正高达 <span class="math inline">\(d/2\)</span> 的误差。</p>
+<p>假设文件 <span class="math inline">\(F\)</span> 包括 <span class="math inline">\(b\)</span> 个块，<span class="math inline">\(F[1],\cdots , F[b]\)</span>。 （我们假设 <span class="math inline">\(b\)</span> 是 <span class="math inline">\(k\)</span> 的倍数，一个编码参数。实际上，如果需要，我们可以填充 <span class="math inline">\(F\)</span>。）我们还假设 <span class="math inline">\(F\)</span> 中包含一个消息验证代码（MAC）值，允许验证者在 检索是否已正确恢复 <span class="math inline">\(F\)</span>。</p>
+<p>函数编码包含四个步骤：</p>
+<p><strong>纠错</strong>：我们将文件 <span class="math inline">\(F\)</span> 编码成 <span class="math inline">\(k\)</span> 个块。对于每个块，我们应用<span class="math inline">\((n,d,k)\)</span>-纠错编码 <span class="math inline">\(C\)</span> 覆盖 <span class="math inline">\(GF[2^l]\)</span>。 该操作将每个块扩展为 <span class="math inline">\(n\)</span> 个块，因此产生文件 <span class="math inline">\(F&#39; = F&#39;[1], \cdots, F&#39;[b&#39;]\)</span>，其中 <span class="math inline">\(b&#39;= bn / k\)</span> 块。</p>
+<p><strong>加密</strong>：我们将对称密钥密码 <span class="math inline">\(E\)</span> 应用于 <span class="math inline">\(F&#39;\)</span>，产生文件 <span class="math inline">\(F&#39;&#39;\)</span>。 我们的协议需要能够隔离解密数据块，因为我们的目标是即使在存档删除或破坏块时也能恢复 <span class="math inline">\(F\)</span>。 因此，我们要求密码 <span class="math inline">\(E\)</span> 在明文块上独立运行。 一种选择是使用<span class="math inline">\(l\)</span>位块密码。 在这种情况下，我们要求在选择明文攻击下无法区分; 例如，如果处于影响F的位置的对手能够区分块的数据内容，则是不合需要的。 在实践中，适当选择密码 <span class="math inline">\(E\)</span> 将是一个可调整的分组密码[27]，如XEX [35]。 第二种选择是采用流密码 <span class="math inline">\(E\)</span>。在解密时，可以简单地丢弃对应于丢失块的密钥流的部分。</p>
+<p><strong>标记创建</strong>：设 <span class="math inline">\(f:\{0,1\}^j \times \{0,1\}^* \to \{0,1\}^l\)</span> 是一个合适的单向函数。 我们计算一组 <span class="math inline">\(s\)</span> 标记<span class="math inline">\(\{a_w\}^s_w=1\)</span> 作为<span class="math inline">\(a_w = f(\kappa,w)\)</span>。 我们将这些哨兵附加到 <span class="math inline">\(F&#39;&#39;\)</span>，产生 <span class="math inline">\(F&#39;&#39;&#39;\)</span>。 （因此，我们可以容纳最多 <span class="math inline">\(\lfloor s/q\rfloor\)</span> 挑战，每个挑战都有<span class="math inline">\(q\)</span> 个请求。）</p>
+<p><strong>置换</strong>：设 <span class="math inline">\(g:\{0,1\}^j \times \{1,\cdots,b&#39;+s\} \to \{1,\cdots,b&#39;+s\}\)</span> 是伪随机置换（PRP）[28]。 我们应用 <span class="math inline">\(g\)</span> 来置换<span class="math inline">\(F&#39;&#39;&#39;\)</span> 的块，产生输出文件 <span class="math inline">\(\tilde{F}\)</span>。特别地，我们让<span class="math inline">\(\tilde{F}[i] = F&#39;&#39;&#39;[g(\kappa,i)]\)</span>。</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+
+  
+  
+  <ul class="breadcrumb">
+    
+      
+      
+        
+          
+            
+          
+          <li><a href="/bak/">BAK</a></li>
+        
+      
+    
+      
+      
+        
+          <li>PAPER</li>
+        
+      
+    
+      
+      
+        
+          
+            
+          
+          <li><a href="/bak/Paper-translation-for-PoRet.html/">PAPER-TRANSLATION-FOR-PORET.HTML</a></li>
+        
+      
+    
+  </ul>
+
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tiannian Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/tiannian" title="GitHub &rarr; https://github.com/tiannian" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:dtiannian@aliyun.com" title="E-Mail &rarr; mailto:dtiannian@aliyun.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by.svg" alt="Creative Commons"/></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#针对大文件的可检索性证明"><span class="nav-text">针对大文件的可检索性证明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种方法"><span class="nav-text">1.1 第一种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们的方法"><span class="nav-text">1.2 我们的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关工作"><span class="nav-text">1.3 相关工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们的贡献"><span class="nav-text">1.4 我们的贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组织"><span class="nav-text">组织</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-text">2. 定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准的知识证明定义和por"><span class="nav-text">2.1 标准的知识证明定义和POR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义por系统"><span class="nav-text">2.2 定义POR系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#por安全定义"><span class="nav-text">2.3 POR安全定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于标记的por方案"><span class="nav-text">3. 基于标记的POR方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标记机制详情"><span class="nav-text">标记机制详情</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiannian Du</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'zEfVVP3bT5NRhSwrhAcIk1i0-gzGzoHsz',
+    appKey: 'gkh9e9g9vI4JToD9nAyg4rvO',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+    
+  
+  <script src="//cdn.jsdelivr.net/npm/pangu@3.3.0/dist/browser/pangu.min.js"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

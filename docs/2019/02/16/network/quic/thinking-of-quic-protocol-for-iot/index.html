@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh,en,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="SGzeqKvjdGqch0ovbdlwxpgnCEucOoqmlXohHGweSFU"/>
+
+
+
+  <meta name="msvalidate.01" content="D2721FD7B373C5B70A888A8DE6FFECA4"/>
+
+
+
+
+
+  <meta name="baidu-site-verification" content="nygQg1xI3h"/>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC相关的问题，尤其是针对如何在IoT设备环境中实施QUIC协议。 QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能">
+<meta name="keywords" content="QUIC,thinking,Strobe,Noise,Disco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成）">
+<meta property="og:url" content="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/index.html">
+<meta property="og:site_name" content="NianZhe">
+<meta property="og:description" content="最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC相关的问题，尤其是针对如何在IoT设备环境中实施QUIC协议。 QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/quic-drafts.png">
+<meta property="og:updated_time" content="2020-03-19T08:18:17.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成）">
+<meta name="twitter:description" content="最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC相关的问题，尤其是针对如何在IoT设备环境中实施QUIC协议。 QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能">
+<meta name="twitter:image" content="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/quic-drafts.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NianZhe" type="application/atom+xml"/>
+
+
+
+
+  <link rel="canonical" href="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成） | NianZhe</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NianZhe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Nian is made up by Jin and Xin</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags<span class="badge">22</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives<span class="badge">10</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/tiannian" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiannian Du"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NianZhe"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成）
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-16 21:21:56" itemprop="dateCreated datePublished" datetime="2019-02-16T21:21:56+08:00">2019-02-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-19 16:18:17" itemprop="dateModified" datetime="2020-03-19T16:18:17+08:00">2020-03-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/quic/" itemprop="url" rel="index"><span itemprop="name">quic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/" class="leancloud_visitors" data-flag-title="有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成）">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近翻译了IETF的QUIC协议提案，在翻译的过程中对QUIC协议有了更深入的理解。同时也思考了一些与QUIC相关的问题，尤其是针对如何在IoT设备环境中实施QUIC协议。</p>
+<p>QUIC协议最开始是Google设计的用来代替TCP的运输层协议。与TCP不同的是，QUIC工作于应用程序中，而并非工作于操作系统内核中。QUIC更加适配HTTP/2，根据Google给出的数据，基于QUIC的HTTP/2性能好于基于TCP的HTTP/2。IETF甚至将HTTP/2 over QUIC称之为HTTP/3。但IETF给出的协议提案与Google的原始实现并不相同，同时也删除了一些功能。</p>
+<p>但在阅读QUIC协议提案时，笔者也发现了一些问题。其中最大的问题时QUIC协议是为HTTP通讯而设计。当笔者考虑将QUIC协议实施于IoT环境下时，发现QUIC的实现过于庞大，同时对设备资源需求较高。QUIC本身确实拥有一些适合于物联网环境的特性，本文就来讨论下如何在IoT设备上实施QUIC协议，避免实施QUIC时会遇到的问题。</p>
+<a id="more"></a>
+<h2 id="quic协议与iot">QUIC协议与IoT</h2>
+<p>Web技术虽然现在开发工具很多，浏览器的实现也各不相同，但大家在协议层都支持HTTP协议。无论这些支持的HTTP协议版本有什么区别，但是至少都支持一个最低子集。然而不同于现有Web技术的情况，IoT领域到目前为止并没有一套统一的网络协议可供使用，不同的解决方案采用了不同的通讯协议。</p>
+<p>现有在IoT上的实现主要分为两类，一类是基于UDP实现的应用层协议，最出名的例子就是CoAP协议；另外一类则是基于TCP协议实现，这一类协议的代表就是MQTT协议。但这些协议都是应用层协议，并非是传输层协议。传输层协议在IoT上的实现由嵌入式网络协议栈提供。这两类方案各有优缺点。</p>
+<h3 id="为什么quic协议是iot设备的良伴">为什么QUIC协议是IoT设备的良伴</h3>
+<p>IoT设备所处的网络环境十分的复杂，节点间存在各种各样的连接方式，两个节点间也可能存在很多条路由。具体来说，IoT节点间的连接有如下特性：</p>
+<ul>
+<li>通讯流量较小：除了OTA等场景下，在相同时间段内，IoT节点需要传递的数据量远小于Web服务。</li>
+<li>需要长连接：为了保证对节点的持续控制，降低节点缓存数据的压力，IoT节点间需要维持长时间的连接</li>
+<li>低延时需求：对于执行用户指令的IoT设备，需要尽量降低指令传递过程中的延时，保证指令尽快的执行。</li>
+<li>网络连接不稳定：IoT节点的网络接入方式可能远没有Web服务稳定，节点需要经常进行连接恢复。有时候双方节点的IP地址等信息都可能发生变化。</li>
+<li>多层穿越：对于在家庭内部使用的智能设备，节点往往位于多层设备之后，需要经过多条路由。</li>
+<li>加密与安全性需求：IoT设备传递的大多数属于较为隐私的数据，为了保证数据的安全，需要在链路上实施高级的密码学安全保护。</li>
+</ul>
+<p>QUIC提供的很多特性可以满足如上的需求。</p>
+<p>首先QUIC的设计中原生支持TLS或者其他密码学协议，利用这样的方式QUIC上传输的数据包都会被加密验证，保证数据传输过程中的安全性。</p>
+<p>其次，不同于传统TCP使用&lt;源IP，源端口，目标IP，目标端口&gt;四元组来表示连接，QUIC使用连接ID标记连接，通过这样的方法，两个节点间的连接可以轻易的迁移，解决UDP穿越NAT数据包改写的问题，甚至能保证节点切换网络后连接也能继续进行。同时由于QUIC的0-RTT特性，当连接迁移时，不需重新对连接的密钥进行重新协商。</p>
+<p>最后由于原始的TCP流量控制协议为大流量应用设计，主要解决流量而不是延时问题。而IoT环境下网络往往不需要传递很大的流量，而是对延时需求较高，对流量需求则不高。QUIC的丢失检测和拥塞控制算法可以自由的被替换，针对不同的场景可以替换成不同的算法，以匹配不同的场景。</p>
+<h3 id="为什么难以在iot设备上实施quic协议">为什么难以在IoT设备上实施QUIC协议</h3>
+<p>虽然说QUIC协议拥有以上适用于IoT的特征，但当我们在准备IoT环境下实施QUIC协议时，我们会发现以下问题：</p>
+<ul>
+<li>TLS难以在IoT设备上实施：QUIC基于TLS设计，但TLS过于庞大难以在IoT设备上进行实施。</li>
+<li>QUIC过于复杂：同样的问题也出现在QUIC上，QUIC引入了大量适配HTTP/2的机制，包括流复用等，这些机制过于复杂也导致了QUIC同样难以在IoT上实施。</li>
+<li>丢失检测和拥塞控制算法需要变更：QUIC默认采用的是TCP的NewReno算法，而针对低延时低流量需求的场景可以选择新的算法。</li>
+</ul>
+<p>以上这些均是导致我们难以在IoT设备上实施QUIC协议的原因。</p>
+<h2 id="如何修改quic协议">如何修改QUIC协议</h2>
+<p>虽然说QUIC协议有以上问题，但是IETF的提案提出的QUIC协议拥有十分良好的设计。利用这样的设计，我们可以对针对IoT上的实现单独进行一些修改。并且借助于QUIC提供的版本协商机制，这些新的修改也不会对原有的QUIC协议造成影响。</p>
+<h3 id="quic的逻辑结构">QUIC的逻辑结构</h3>
+<p>在修改原始QUIC协议之前，我们需要明确现有的QUIC是什么样的结构。IETF针对QUIC提出的提案一共有6个，分别是如下：</p>
+<ul>
+<li><strong>Invariants</strong> - 定义了最基础的QUIC协议的结构，定义了数据包的基础结构。只有满足这个提案中描述的协议才可以被称为QUIC协议。在这个提案的基础上可以针对不同版本的QUIC进行协商。</li>
+<li><strong>Transport</strong> - 在<strong>Invariants</strong>基础上定义的<strong>第一个版本</strong>的QUIC协议，其中定义了QUIC协议的本体，包括了连接建立，流复用，数据包与帧描述，加密认证握手框架，拥塞控制框架等机制。</li>
+<li><strong>Recovery</strong> - 定义了QUIC中具体的丢失检测和拥塞控制算法。</li>
+<li><strong>TLS</strong> - 定义了如何使用TLS握手，加密认证数据包。</li>
+<li><strong>HTTP</strong> - 定义了如何在QUIC上实现HTTP/2，也就是传说中的HTTP/3（HTTP/2 over QUIC）。</li>
+<li><strong>QPACK</strong> - 定义了如何在HTTP/3上对HTTP头进行压缩。</li>
+</ul>
+<p>从整体来看QUIC协议拥有以下图示的架构：</p>
+<p><img src="quic-drafts.png"></p>
+<p>其中需要说明的是，其中TLS握手被独立出来，而TLS对数据包进行加密与认证与QUIC传输层相互依赖。TLS为QUIC提供握手机制，QUIC为TLS提供顺序数据包传输的机制。</p>
+<p>在这个架构设计中，在保持下一层不变的基础上，上一层的内容可以被无痛的替换。例如：当我们觉得TLS的握手机制不适合，就可以只替换TLS，保持其他部分不发生变化。</p>
+<h3 id="寻找tls的替代品">寻找TLS的替代品</h3>
+<p>在IoT环境下，TLS开销较大，系统过于复杂。TLS中包含两部分，分别是：用于加密认证传输TLS数据包的记录层，和用于交换密钥，保证安全性的密钥握手协议。这两个层次分别侧重于不同的密码学机制，记录层集中使用对称加密机制，而密钥握手协议则集中于非对称加密机制。当我们寻找替代协议时，我们需要找到适用这两个层次的密码学协议。</p>
+<p>幸运的是，我们已经有了十分轻量的可用的密码学协议：</p>
+<p>Strobe是一个关注与对称加密的密码学协议框架，基于Keccak构建。</p>
+<p>Noise是一个非对称握手与密钥交换的协议框架，基于25519构建。</p>
+<h3 id="寻找newreno的替代品">寻找NewReno的替代品</h3>
+<h3 id="阉割quic">阉割QUIC</h3>
+<h3 id="可以选择的应用层协议">可以选择的应用层协议</h3>
+<h2 id="cquic">cQUIC</h2>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Tiannian Du</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/" title="有关QUIC的随笔 - 如何为IoT设备实施QUIC协议（未完成）">https://tiannian.github.io/2019/02/16/network/quic/thinking-of-quic-protocol-for-iot/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QUIC/" rel="tag"># QUIC</a>
+          
+            <a href="/tags/thinking/" rel="tag"># thinking</a>
+          
+            <a href="/tags/Strobe/" rel="tag"># Strobe</a>
+          
+            <a href="/tags/Noise/" rel="tag"># Noise</a>
+          
+            <a href="/tags/Disco/" rel="tag"># Disco</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/15/network/quic/draft-ietf-quic-transport-latest-3/" rel="next" title="QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.">
+                <i class="fa fa-chevron-left"></i> QUIC协议翻译 - draft-ietf-quic-transport-latest Part 3.
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/19/curdata/two-types-of-digital-currency/" rel="prev" title="价值传递网络：货币与账本">
+                价值传递网络：货币与账本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tiannian Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/tiannian" title="GitHub &rarr; https://github.com/tiannian" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:dtiannian@aliyun.com" title="E-Mail &rarr; mailto:dtiannian@aliyun.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by.svg" alt="Creative Commons"/></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quic协议与iot"><span class="nav-text">QUIC协议与IoT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么quic协议是iot设备的良伴"><span class="nav-text">为什么QUIC协议是IoT设备的良伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么难以在iot设备上实施quic协议"><span class="nav-text">为什么难以在IoT设备上实施QUIC协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何修改quic协议"><span class="nav-text">如何修改QUIC协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#quic的逻辑结构"><span class="nav-text">QUIC的逻辑结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找tls的替代品"><span class="nav-text">寻找TLS的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找newreno的替代品"><span class="nav-text">寻找NewReno的替代品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阉割quic"><span class="nav-text">阉割QUIC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以选择的应用层协议"><span class="nav-text">可以选择的应用层协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cquic"><span class="nav-text">cQUIC</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiannian Du</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'zEfVVP3bT5NRhSwrhAcIk1i0-gzGzoHsz',
+    appKey: 'gkh9e9g9vI4JToD9nAyg4rvO',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+    
+  
+  <script src="//cdn.jsdelivr.net/npm/pangu@3.3.0/dist/browser/pangu.min.js"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
