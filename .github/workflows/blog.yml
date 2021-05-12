@@ -30,7 +30,7 @@ jobs:
     - run: npm run build
     - uses: manyuanrong/setup-ossutil@v2.0
       with:
-        endpoint: "oss-accelerate.aliyuncs.com"
+        endpoint: "oss-cn-shenzhen.aliyuncs.com"
         access-key-id: "${{ secrets.ALIYUN_ACCESS_KEY }}"
         access-key-secret: "${{ secrets.ALIYUN_ACCESS_SECRET }}"
         sts-token: ""
