@@ -30,8 +30,8 @@ jobs:
     - run: npm run build
     - uses: manyuanrong/setup-ossutil@v2.0
       with:
-        endpoint: "oss-cn-shenzhen.aliyuncs.com"
+        endpoint: "oss-accelerate.aliyuncs.com"
         access-key-id: "${{ secrets.ALIYUN_ACCESS_KEY }}"
         access-key-secret: "${{ secrets.ALIYUN_ACCESS_SECRET }}"
         sts-token: ""
-    - run: ossutil cp -rf public/* oss://tiannian/
+    - run: ossutil cp -rf public/ oss://tiannian/
